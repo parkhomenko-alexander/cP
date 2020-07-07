@@ -1,0 +1,11 @@
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.csprojAssemblyReference.cache
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.Properties.Resources.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.csproj.GenerateResource.cache
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.csproj.CoreCompileInputs.cache
+C:\Users\al\source\repos\cP\cP\bin\Debug\cP.exe.config
+C:\Users\al\source\repos\cP\cP\bin\Debug\cP.exe
+C:\Users\al\source\repos\cP\cP\bin\Debug\cP.pdb
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.exe
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.pdb
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.mainWindow.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.initFile.resources
