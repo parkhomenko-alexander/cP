@@ -44,17 +44,35 @@ namespace bynaryTreePaySpace
             coefficient = 0;
         }
 
-        //проверка данных на корректность
+        //проверка данных на корректность 1-сторная буква в [0], 2-некоторая буква не кирилица,
+        //3-з/п меньше МРОТ, 4-коэф. меньше 0.2
         public int dataValidator(string post, double payRate, double coefficient)
         {
-            if (  192 >= post[0] || post[0] >= 223)
+            if (  192 > post[0] || post[0] > 223)
             {
                 return 1;
             }
             else
             {
+                foreach(char letter in post)
+                {
+                    if ( 224 > letter || letter > 255)
+                    {
+                        return 2;
+                    }
+                }
 
+                if (payRate < 12130)
+                {
+                    return 3;
+                }
+
+                if (coefficient < 0.2) 
+                {
+                    return 4;
+                }
             }
+            return 0;
         }
 
 
@@ -80,49 +98,7 @@ namespace bynaryTreePaySpace
 
     class bynaryTreePay
     {   
-        //проверка наличия файла в директории
-        public bool checkDirectory(string path)
-        {
-            if (File.Exists(path) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        //подключение ридера к файлу
-        public StreamReader getReader(string path)
-        {
-            if (checkDirectory(path) == true)
-            {
-                reader = new StreamReader(path);
-                return reader;
-            }
-            else
-            {
-                return reader = null;
-            }
-        }
-
-        //парсер строк
-        public string[] readerPars(string tmp)
-        {   
-            string[] words = tmp.Split(' ');
-            return words;
-        }
-
-        //отключение ридера
-        public StreamReader closeReader()
-        {
-            if (reader != null)
-            {
-                reader.Close();
-            }
-            return reader = null;
-        }
+        
 
         //инициализация дерева из файла
         public void initTreeFromFile(string path)
@@ -132,6 +108,5 @@ namespace bynaryTreePaySpace
 
 
         public bynaryTreeNode root;
-        public StreamReader reader;
     }
 }

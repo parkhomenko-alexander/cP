@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using bynaryTreePaySpace;
+using fileRWSpace;
 
 namespace cP
 {
     public partial class mainWindow : Form
     {
         bynaryTreePay tree = new bynaryTreePay();
+        fileRW objRW = new fileRW();
         public mainWindow()
         {
             InitializeComponent();
@@ -24,7 +26,7 @@ namespace cP
         {
             string fileName = "bynTreePay.txt";
             string path = @"C:\Users\al\source\repos\cP\cP\";
-            if (tree.checkDirectory(path + fileName) == false)
+            if (objRW.checkDirectory(path + fileName) == false)
             {
                 initFile notID = new initFile();
                 notID.inputText = "Файл " + fileName + " не найден в директории" + System.Environment.NewLine + System.Environment.NewLine;
@@ -33,18 +35,18 @@ namespace cP
             }
             else
             {
-                tree.getReader(path + fileName);
-                string tmp = tree.reader.ReadLine();
+                objRW.openReader(path + fileName);
+                string tmp = objRW.reader.ReadLine();
                 string[] tmpArr;
         
                 while (tmp != null)
                 {
-                    tmpArr = tree.readerPars(tmp);
+                    tmpArr = objRW.readerPars(tmp);
                     this.listPayInfo.Rows.Add(tmpArr);
-                    tmp = tree.reader.ReadLine();
+                    tmp = objRW.reader.ReadLine();
 
                 }
-                tree.closeReader();
+                objRW.closeReader();
                 initFile notID = new initFile();
                 notID.inputText = "Файл " + fileName + " найден в директории" + System.Environment.NewLine;
                 notID.inputText += path + System.Environment.NewLine + "Дерево инициализировано успешно";
