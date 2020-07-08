@@ -44,6 +44,7 @@ namespace cP
                     tmp = tree.reader.ReadLine();
 
                 }
+                tree.closeReader();
                 initFile notID = new initFile();
                 notID.inputText = "Файл " + fileName + " найден в директории" + System.Environment.NewLine;
                 notID.inputText += path + System.Environment.NewLine + "Дерево инициализировано успешно";

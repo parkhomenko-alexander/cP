@@ -21,12 +21,13 @@ namespace bynaryTreePaySpace
     class payInfo
     {   
         //конструктор по умолчанию
-        payInfo()
+        public payInfo()
         {
             post = "Нет должности";
             payRate = 12130;
             coefficient = 0.2;
         }
+
         //конструктор с параметрами
         public payInfo(string s, double pR, double c)
         {
@@ -34,6 +35,7 @@ namespace bynaryTreePaySpace
                payRate = pR;
                coefficient = c;
         }
+        
         //финализатор
         ~payInfo()
         {
@@ -41,7 +43,21 @@ namespace bynaryTreePaySpace
             payRate = 0;
             coefficient = 0;
         }
-        
+
+        //проверка данных на корректность
+        public int dataValidator(string post, double payRate, double coefficient)
+        {
+            if (  192 >= post[0] || post[0] >= 223)
+            {
+                return 1;
+            }
+            else
+            {
+
+            }
+        }
+
+
         //поля класса
         public string post { get; set; }
         public double payRate { get; set; }
@@ -50,9 +66,16 @@ namespace bynaryTreePaySpace
 
     class bynaryTreeNode
     {
+        bynaryTreeNode()
+        {
+            info = new payInfo();
+            left = null;
+            right = null;
+            
+        }
         private payInfo info { get; set; }
         private bynaryTreeNode left { get; set; }
-        private bynaryTreeNode rigt { get; set; }
+        private bynaryTreeNode right { get; set; }
     }
 
     class bynaryTreePay
@@ -92,7 +115,7 @@ namespace bynaryTreePaySpace
         }
 
         //отключение ридера
-        public StreamReader closeReader(string path)
+        public StreamReader closeReader()
         {
             if (reader != null)
             {
