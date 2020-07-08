@@ -9,7 +9,6 @@ namespace fileRWSpace
 {
     class fileRW
     {   
-        public StreamReader reader;
 
         //проверка наличия файла в директории
         public bool checkDirectory(string path)
@@ -41,7 +40,7 @@ namespace fileRWSpace
         //парсер строк
         public string[] readerPars(string tmp)
         {
-            string[] words = tmp.Split(' ');
+            string[] words = tmp.Split(new[] {"; " },  System.StringSplitOptions.None);
             return words;
         }
 
@@ -54,5 +53,7 @@ namespace fileRWSpace
             }
             return reader = null;
         }
+
+        public StreamReader reader;
     }
 }

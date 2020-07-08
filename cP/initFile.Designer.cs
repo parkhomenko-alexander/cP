@@ -59,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(404, 249);
             this.Controls.Add(this.infoBox);
             this.Controls.Add(this.okButton);
+            this.MaximizeBox = false;
             this.Name = "initFile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Статус инициализации ";

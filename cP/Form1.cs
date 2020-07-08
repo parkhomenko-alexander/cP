@@ -17,6 +17,7 @@ namespace cP
     {
         bynaryTreePay tree = new bynaryTreePay();
         fileRW objRW = new fileRW();
+
         public mainWindow()
         {
             InitializeComponent();
@@ -24,34 +25,24 @@ namespace cP
 
         private void initBynTreePay_Click(object sender, EventArgs e)
         {
-            string fileName = "bynTreePay.txt";
-            string path = @"C:\Users\al\source\repos\cP\cP\";
-            if (objRW.checkDirectory(path + fileName) == false)
+            OpenFileDialog opfd = new OpenFileDialog();
+            if (opfd.ShowDialog() == DialogResult.OK)
             {
-                initFile notID = new initFile();
-                notID.inputText = "Файл " + fileName + " не найден в директории" + System.Environment.NewLine + System.Environment.NewLine;
-                notID.inputText += path;
-                notID.Show();
+                objRW.openReader(OpenFileDialog.FileName);
             }
-            else
-            {
-                objRW.openReader(path + fileName);
-                string tmp = objRW.reader.ReadLine();
-                string[] tmpArr;
+           
+            string tmp = objRW.reader.ReadLine();
+            string[] tmpArr;
         
-                while (tmp != null)
-                {
-                    tmpArr = objRW.readerPars(tmp);
-                    this.listPayInfo.Rows.Add(tmpArr);
-                    tmp = objRW.reader.ReadLine();
+            while (tmp != null)
+            {
+                tmpArr = objRW.readerPars(tmp);
+                this.listPayInfo.Rows.Add(tmpArr);
+                tmp = objRW.reader.ReadLine();
 
-                }
-                objRW.closeReader();
-                initFile notID = new initFile();
-                notID.inputText = "Файл " + fileName + " найден в директории" + System.Environment.NewLine;
-                notID.inputText += path + System.Environment.NewLine + "Дерево инициализировано успешно";
-                notID.Show();
             }
+            objRW.closeReader();
+
         }
 
         private void mainWindow_Load(object sender, EventArgs e)

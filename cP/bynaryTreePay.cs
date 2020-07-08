@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
-
+using System.Windows.Forms;
+using System.CodeDom;
 
 namespace bynaryTreePaySpace
 {   enum post 
@@ -91,22 +91,68 @@ namespace bynaryTreePaySpace
             right = null;
             
         }
+        public int getKey()
+        {
+            int tmp = 0;
+
+            foreach (char letter in this.info.post)
+            {
+                tmp += letter;
+            }
+            tmp += (int)this.info.payRate;
+            return tmp;
+
+        }
+        public bool compareTwoNodes(bynaryTreeNode secondNode)
+        {
+            return this.getKey() >= secondNode.getKey();
+
+        }
+
         private payInfo info { get; set; }
         private bynaryTreeNode left { get; set; }
         private bynaryTreeNode right { get; set; }
     }
 
     class bynaryTreePay
-    {   
-        
+    {
 
-        //инициализация дерева из файла
+        public bool isEmpty()
+        {
+            if (root == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void addNode(bynaryTreeNode node)
+        {   
+            current = root;
+            if (isEmpty() == true)
+            {
+                current = node;
+                return;
+            }
+
+            while (current != null)
+            {
+                if (node.compareTwoNodes(current) == true)
+                {
+                    //current = current.right;
+                }
+            }
+        }
+
         public void initTreeFromFile(string path)
         {
             
         }
 
-
-        public bynaryTreeNode root;
+        private bynaryTreeNode current;
+        private bynaryTreeNode root;
     }
 }
