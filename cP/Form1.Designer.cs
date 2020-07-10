@@ -35,12 +35,14 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabForm = new System.Windows.Forms.TabControl();
             this.backGroundPayList = new System.Windows.Forms.TabPage();
-            this.initBynTreePay = new System.Windows.Forms.Button();
+            this.getPayInfo = new System.Windows.Forms.Button();
+            this.initBynPayInfo = new System.Windows.Forms.Button();
             this.listPayInfo = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backGroundForPersonnelInfo = new System.Windows.Forms.TabPage();
+            this.initPersonnelInfo = new System.Windows.Forms.Button();
             this.listPersonnelInfo = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,11 +51,10 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.upperContexMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.listBonusInfo)).BeginInit();
             this.tabForm.SuspendLayout();
             this.backGroundPayList.SuspendLayout();
@@ -73,73 +74,85 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.listBonusInfo.Location = new System.Drawing.Point(690, 0);
+            this.listBonusInfo.Location = new System.Drawing.Point(747, 0);
             this.listBonusInfo.Name = "listBonusInfo";
             this.listBonusInfo.RowHeadersWidth = 50;
             this.listBonusInfo.RowTemplate.Height = 24;
-            this.listBonusInfo.Size = new System.Drawing.Size(699, 400);
+            this.listBonusInfo.Size = new System.Drawing.Size(715, 400);
             this.listBonusInfo.TabIndex = 2;
             // 
             // Column7
             // 
+            this.Column7.FillWeight = 149.7326F;
             this.Column7.HeaderText = "Has-number";
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             // 
             // Column1
             // 
+            this.Column1.FillWeight = 83.42246F;
             this.Column1.HeaderText = "Должность";
             this.Column1.MinimumWidth = 8;
             this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Column2
             // 
+            this.Column2.FillWeight = 83.42246F;
             this.Column2.HeaderText = "Стаж";
             this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Column3
             // 
+            this.Column3.FillWeight = 83.42246F;
             this.Column3.HeaderText = "Процент";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
-            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // tabForm
             // 
             this.tabForm.Controls.Add(this.backGroundPayList);
             this.tabForm.Controls.Add(this.backGroundForPersonnelInfo);
-            this.tabForm.Location = new System.Drawing.Point(12, 36);
+            this.tabForm.Location = new System.Drawing.Point(12, 31);
             this.tabForm.Name = "tabForm";
             this.tabForm.SelectedIndex = 0;
-            this.tabForm.Size = new System.Drawing.Size(1400, 566);
+            this.tabForm.Size = new System.Drawing.Size(1470, 570);
             this.tabForm.TabIndex = 4;
             // 
             // backGroundPayList
             // 
-            this.backGroundPayList.Controls.Add(this.initBynTreePay);
+            this.backGroundPayList.Controls.Add(this.getPayInfo);
+            this.backGroundPayList.Controls.Add(this.initBynPayInfo);
             this.backGroundPayList.Controls.Add(this.listPayInfo);
             this.backGroundPayList.Controls.Add(this.listBonusInfo);
             this.backGroundPayList.Location = new System.Drawing.Point(4, 25);
             this.backGroundPayList.Name = "backGroundPayList";
             this.backGroundPayList.Padding = new System.Windows.Forms.Padding(3);
-            this.backGroundPayList.Size = new System.Drawing.Size(1392, 537);
+            this.backGroundPayList.Size = new System.Drawing.Size(1462, 541);
             this.backGroundPayList.TabIndex = 0;
             this.backGroundPayList.Text = "Информация о заработной плате";
             this.backGroundPayList.UseVisualStyleBackColor = true;
             // 
-            // initBynTreePay
+            // getPayInfo
             // 
-            this.initBynTreePay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.initBynTreePay.Location = new System.Drawing.Point(18, 413);
-            this.initBynTreePay.Name = "initBynTreePay";
-            this.initBynTreePay.Size = new System.Drawing.Size(130, 50);
-            this.initBynTreePay.TabIndex = 6;
-            this.initBynTreePay.Text = "Инициализация инф-ии о з/п";
-            this.initBynTreePay.UseVisualStyleBackColor = true;
-            this.initBynTreePay.Click += new System.EventHandler(this.initBynTreePay_Click);
+            this.getPayInfo.Location = new System.Drawing.Point(142, 409);
+            this.getPayInfo.Name = "getPayInfo";
+            this.getPayInfo.Size = new System.Drawing.Size(158, 49);
+            this.getPayInfo.TabIndex = 7;
+            this.getPayInfo.Text = "Узнать информацию о з/п должности";
+            this.getPayInfo.UseVisualStyleBackColor = true;
+            this.getPayInfo.Click += new System.EventHandler(this.getPayInfo_Click);
+            // 
+            // initBynPayInfo
+            // 
+            this.initBynPayInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.initBynPayInfo.Location = new System.Drawing.Point(6, 408);
+            this.initBynPayInfo.Name = "initBynPayInfo";
+            this.initBynPayInfo.Size = new System.Drawing.Size(130, 50);
+            this.initBynPayInfo.TabIndex = 6;
+            this.initBynPayInfo.Text = "Инициализация инф-ии о з/п";
+            this.initBynPayInfo.UseVisualStyleBackColor = true;
+            this.initBynPayInfo.Click += new System.EventHandler(this.initBynTreePay_Click);
             // 
             // listPayInfo
             // 
@@ -153,7 +166,7 @@
             this.listPayInfo.Name = "listPayInfo";
             this.listPayInfo.RowHeadersWidth = 50;
             this.listPayInfo.RowTemplate.Height = 24;
-            this.listPayInfo.Size = new System.Drawing.Size(550, 400);
+            this.listPayInfo.Size = new System.Drawing.Size(715, 400);
             this.listPayInfo.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn1
@@ -161,33 +174,42 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Должность";
             this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "Размер з/п";
             this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.HeaderText = "Коэффициент";
             this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // backGroundForPersonnelInfo
             // 
+            this.backGroundForPersonnelInfo.Controls.Add(this.initPersonnelInfo);
             this.backGroundForPersonnelInfo.Controls.Add(this.listPersonnelInfo);
             this.backGroundForPersonnelInfo.Controls.Add(this.listEmployeeInfo);
             this.backGroundForPersonnelInfo.Location = new System.Drawing.Point(4, 25);
             this.backGroundForPersonnelInfo.Name = "backGroundForPersonnelInfo";
             this.backGroundForPersonnelInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.backGroundForPersonnelInfo.Size = new System.Drawing.Size(1392, 537);
+            this.backGroundForPersonnelInfo.Size = new System.Drawing.Size(1462, 541);
             this.backGroundForPersonnelInfo.TabIndex = 1;
-            this.backGroundForPersonnelInfo.Text = "Инфорамация о сотрудниках";
+            this.backGroundForPersonnelInfo.Text = "Информация о сотрудниках";
             this.backGroundForPersonnelInfo.UseVisualStyleBackColor = true;
+            // 
+            // initPersonnelInfo
+            // 
+            this.initPersonnelInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.initPersonnelInfo.Location = new System.Drawing.Point(6, 408);
+            this.initPersonnelInfo.Name = "initPersonnelInfo";
+            this.initPersonnelInfo.Size = new System.Drawing.Size(156, 55);
+            this.initPersonnelInfo.TabIndex = 7;
+            this.initPersonnelInfo.Text = "Инициализация инф-ии о работниках\r\n";
+            this.initPersonnelInfo.UseVisualStyleBackColor = true;
+            this.initPersonnelInfo.Click += new System.EventHandler(this.initPersonnelInfo_Click);
             // 
             // listPersonnelInfo
             // 
@@ -201,7 +223,7 @@
             this.listPersonnelInfo.Name = "listPersonnelInfo";
             this.listPersonnelInfo.RowHeadersWidth = 50;
             this.listPersonnelInfo.RowTemplate.Height = 24;
-            this.listPersonnelInfo.Size = new System.Drawing.Size(550, 400);
+            this.listPersonnelInfo.Size = new System.Drawing.Size(715, 400);
             this.listPersonnelInfo.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn4
@@ -230,11 +252,11 @@
             this.Column4,
             this.Column5,
             this.Column6});
-            this.listEmployeeInfo.Location = new System.Drawing.Point(690, 0);
+            this.listEmployeeInfo.Location = new System.Drawing.Point(747, 0);
             this.listEmployeeInfo.Name = "listEmployeeInfo";
             this.listEmployeeInfo.RowHeadersWidth = 50;
             this.listEmployeeInfo.RowTemplate.Height = 24;
-            this.listEmployeeInfo.Size = new System.Drawing.Size(550, 400);
+            this.listEmployeeInfo.Size = new System.Drawing.Size(715, 400);
             this.listEmployeeInfo.TabIndex = 0;
             // 
             // Column4
@@ -255,17 +277,9 @@
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.textBox1.Location = new System.Drawing.Point(0, 29);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1500, 1);
-            this.textBox1.TabIndex = 5;
-            // 
             // upperContexMenu
             // 
+            this.upperContexMenu.AutoSize = false;
             this.upperContexMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.upperContexMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
@@ -290,18 +304,15 @@
             // 
             // mainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1482, 653);
-            this.Controls.Add(this.textBox1);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(1482, 608);
             this.Controls.Add(this.tabForm);
             this.Controls.Add(this.upperContexMenu);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "mainWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "База данных сотрудиков";
-            this.Load += new System.EventHandler(this.mainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.listBonusInfo)).EndInit();
             this.tabForm.ResumeLayout(false);
             this.backGroundPayList.ResumeLayout(false);
@@ -312,7 +323,6 @@
             this.upperContexMenu.ResumeLayout(false);
             this.upperContexMenu.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -322,10 +332,6 @@
         private System.Windows.Forms.TabPage backGroundPayList;
         private System.Windows.Forms.DataGridView listPayInfo;
         private System.Windows.Forms.TabPage backGroundForPersonnelInfo;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridView listEmployeeInfo;
         private System.Windows.Forms.DataGridView listPersonnelInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
@@ -334,15 +340,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.Button initBynTreePay;
+        private System.Windows.Forms.Button initBynPayInfo;
+        private System.Windows.Forms.MenuStrip upperContexMenu;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчётToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.MenuStrip upperContexMenu;
-        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отчётToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog OpenFileDialog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.Button initPersonnelInfo;
+        private System.Windows.Forms.Button getPayInfo;
     }
 }
 

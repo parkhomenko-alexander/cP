@@ -8,4 +8,4 @@ C:\Users\al\source\repos\cP\cP\bin\Debug\cP.pdb
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.exe
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.pdb
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.mainWindow.resources
-C:\Users\al\source\repos\cP\cP\obj\Debug\cP.initFile.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.findPayInfo.resources
