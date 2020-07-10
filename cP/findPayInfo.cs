@@ -31,7 +31,7 @@ namespace cP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String 
+            string post = infoBox.Text;
         }
     }
 }

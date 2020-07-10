@@ -6,131 +6,300 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.CodeDom;
-using fileRWSpace;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.Drawing.Drawing2D;
 
-namespace bynaryTreePaySpace
-{   enum post 
-    {
-        Директор,
-        Экономист, 
-        Менеджер,
-        Программист, 
-        Инженер,
-        Уборщица
-    }
-
-    class payInfo
+namespace cP
+{   
+    struct info
     {   
-        //конструктор по умолчанию
-        public payInfo()
+        public info(string field1, string field2, string field3)
         {
-            post = "Нет должности";
-            payRate = "12130";
-            coefficient = "0.2";
+            this.field1 = field1;
+            this.field2 = field2;
+            this.field3 = field3;
         }
 
-        //конструктор с параметрами
-        public payInfo(string s, string pR, string c)
-        {
-               post = s;
-               payRate = pR;
-               coefficient = c;
-        }
-        
-        //финализатор
-        ~payInfo()
-        {
-            post = null;
-            payRate = null;
-            coefficient = null;
-        }
-
-        //проверка данных на корректность 1-сторная буква в [0], 2-некоторая буква не кирилица,
-        //3-з/п меньше МРОТ, 4-коэф. меньше 0.2
-        public int dataValidator(string post, double payRate, double coefficient)
-        {
-            if (  192 > post[0] || post[0] > 223)
-            {
-                return 1;
-            }
-            else
-            {
-                foreach(char letter in post)
+        //1-не целая зп, 2 - [0] != !A, 3-[n] == /.!, 4 - кеф > 100, 5 - кеф > 100
+        //6 < MROT
+        public int validator(string field1, string field2, string field3)
+        {   
+            int i = 0;
+            foreach (char letter in field2)
+            {   if (i == 0)
                 {
-                    if ( 224 > letter || letter > 255)
-                    {
-                        return 2;
-                    }
+                    i++;
+                    continue;
                 }
-
-                if (payRate < 12130)
-                {
+                if (1072 > letter || letter > 1103)
+                {   
                     return 3;
                 }
+            }
 
-                if (coefficient < 0.2) 
+            if (1040 > field2[0] || field2[0] > 1071)
+            {
+                return 2;
+            }
+
+            foreach (char letter in field1)
+            {
+                if (48 > letter || letter > 57)
                 {
-                    return 4;
+                    return 1;
                 }
+            }
+            if (field3.Length > 3)
+            {
+                return 4;
+            }
+            foreach (char letter in field3)
+            {
+                if (48 > letter || letter > 57)
+                {
+                    return 5;
+                }
+            }
+            if (Convert.ToInt32(field1) < 12130)
+            {
+                return 6;
             }
             return 0;
         }
-       
-        public void initInfo(string[] data)
+        public string errorHandler(int number)
         {
-            this.post = data[0];
-            this.payRate = data[1];
-            this.coefficient = data[2];
+            switch (number)
+            {
+                case 0:
+                    {
+                        return "";
+                    }
+                case 1:
+                    {
+                        return "Данные о з\\п некорректны";
+                    }
+                case 2:
+                    {
+                        return "Нарушение регистра в записи профессии";
+                    }
+                case 3:
+                    {
+                        return "Профессия записана не на кирилице";
+                    }
+                case 4:
+                    {
+                        return "Коэффциент определён на [0 .. 100]";
+                    }
+                case 5:
+                    {
+                        return "Коэффициент определён на [0 .. 100]";
+                    }
+                case 6:
+                    {
+                        return "З\\п не может быть меньше МРОТ";
+                    }
+                default:
+                    {
+                        return "Запись успешно добалена";
+                    }
+            }
         }
 
-        //поля класса
-        public string post { get; set; }
-        public string payRate { get; set; }
-        public string coefficient { get; set; }
+        public static bool operator ==(info i1, info i2)
+        {
+            int resCompFl1 = i1.field1.CompareTo(i2.field1);
+            int resCompFl2 = i1.field2.CompareTo(i2.field2);
+            int resCompFl3 = i1.field3.CompareTo(i2.field3);
+
+            if (resCompFl1 == 0 && resCompFl2 == 0 && resCompFl3 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool operator !=(info i1, info i2)
+        {
+            int resCompFl1 = i1.field1.CompareTo(i2.field1);
+            int resCompFl2 = i1.field2.CompareTo(i2.field2);
+            int resCompFl3 = i1.field3.CompareTo(i2.field3);
+
+            if (resCompFl1 != 0 || resCompFl2 != 0 || resCompFl3 != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string field1 { get; set; }
+        public string field2 { get; set; }
+        public string field3 { get; set; }
+
     }
 
-    class bynaryTreeNode
+    class node
     {
-        public bynaryTreeNode()
+        public node()
         {
-            info = new payInfo();
+            field1 = null;
+            field2 = null;
+            field3 = null;
+            parent = null;
             left = null;
             right = null;
-            
         }
-
-        double getKey()
+        public node(string field1, string field2, string field3)
         {
-            NumberFormatInfo provider = new NumberFormatInfo();
-            provider.NumberGroupSeparator = ".";
-
-            return Convert.ToDouble(this.info.payRate, provider);
+            this.field1 = field1;
+            this.field2 = field2;
+            this.field3 = field3;
+            this.parent = null;
+            this.left = null;
+            this.right = null;
         }
 
-        public bool compareTwoNodes(bynaryTreeNode secondNode)
+        public static bool operator ==(node n1, node n2)
         {
-            return this.getKey() >= secondNode.getKey();
-
+            if (n1.field2.CompareTo(n2.field2) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        
-        public bool equNode(bynaryTreeNode secondNode)
+        public static bool operator !=(node n1, node n2)
         {
-            return this.getKey() == secondNode.getKey() && this.info.post == secondNode.info.post;
+            if (n1.field2.CompareTo(n2.field2) == 1 || n1.field2.CompareTo(n2.field2) == -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool operator >=(node n1, node n2)
+        {
+            if (n1.field2.CompareTo(n2.field2) == 1 || n1.field2.CompareTo(n2.field2) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool operator <=(node n1, node n2)
+        {
+            if (n1.field2.CompareTo(n2.field2) == -1 || n1.field2.CompareTo(n2.field2) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void initNode(payInfo data)
-        {
-            this.info = data;
-        }
-        public payInfo info { get; set; }
-        public bynaryTreeNode left { get; set; }
-        public bynaryTreeNode right {get; set; }
+        public string field1 { get; set; }
+        public string field2 { get; set; }
+        public string field3 { get; set; }
+        public node parent { get; set; }
+        public node left { get; set; }
+        public node right { get; set; }
     }
 
-    class bynaryTreePay
+    class bynaryTree
     {
+        public bynaryTree()
+        {
+            root = null;
+            arraySize = 1;
+            array = new info[arraySize];
+        }
+
+        //всегда успешно
+        public string pushBackArray(string field1, string field2, string field3)
+        {
+            info record = new info(field2, field1, field3);
+
+            if (arraySize == 1)
+            {
+                array[arraySize-1] = record;
+                arraySize++;
+                Array.Resize(ref array, arraySize);
+                return "Запись успешно добавлена";
+            }
+            else 
+            {
+                array[arraySize - 1] = record;
+                arraySize++;
+                Array.Resize(ref array, arraySize);
+                return "Запись успешно добавлена";
+            }
+        }
+
+        public string eraseFromArray(string field2, string field1, string field3)
+        {
+            info record = new info(field2, field1, field3);
+
+            if(arraySize == 0)
+            {
+                return "Удаление невозможно справочник пуст";
+            }
+            else
+            {   
+                int refRecordToRemove = this.findInArray(record);
+                int i = 0; 
+                if (refRecordToRemove != -1)
+                {
+                    this.swapRecords(ref this.array, i);
+                    arraySize--;
+                    Array.Resize(ref this.array, arraySize);
+                    return "Запись успешно удалена";
+                }
+                else
+                {
+                    return "Удаление невозможно запись не содержится в справочнике";
+                }
+
+            }
+        }
+        public void swapRecords(ref info[] ar, int refRecordToRemove)
+        {
+            array[refRecordToRemove]= array[arraySize - 2];
+            array[arraySize - 2] = array[arraySize - 1];
+           
+            return;
+        }
+        
+        //-1 - dont find
+        public int findInArray(info record)
+        {
+            int i = 0;
+            foreach (info rec in array)
+            {   
+                if (i == arraySize - 1)
+                {
+                    i = -1;
+                    break;
+                }
+                if (rec == record)
+                {
+                    break;
+                }
+                i++;
+            }
+            return i;
+        }
 
         public bool isEmpty()
         {
@@ -144,70 +313,58 @@ namespace bynaryTreePaySpace
             }
         }
 
-        public void addNode(bynaryTreeNode node)
+        public void addNode(node n)
         {
-            bynaryTreeNode current;
-            if (isEmpty() == true)
+            if (this.isEmpty() == true)
             {
-                root = node;
-
+                root = n;
                 return;
             }
-
-            current = root;
-            bynaryTreeNode parentForCurrent = new bynaryTreeNode();
-            while (current != null)
+            else
             {
-                parentForCurrent = current;
-                if (node.compareTwoNodes(current) == true)
+                node parent = new node();
+                node current = new node();
+                current = root;
+
+                while(current != null)
                 {
-                    current = current.right;
+                    if (current <= n)
+                    {
+                        parent = current;
+                        current = current.right;
+                    }
+                    else
+                    {
+                        parent = current;
+                        current = current.left;
+                    }
+                }
+
+                if (parent <= n)
+                {
+                    n.parent = parent;
+                    parent.right = n;
                 }
                 else
                 {
-                    current = current.left;
+                    n.parent = parent;
+                    parent.left = n;
                 }
             }
-            if (node.compareTwoNodes(parentForCurrent) == true)
-            {
-                parentForCurrent.right = node;
-            }
-            else
-            {
-                parentForCurrent.left = node;
-            }
-            return;
         }
-
-        public bynaryTreeNode findNode(bynaryTreeNode node)
+        public void initTreeFromePayArray(ref info[] array)
         {
-            bynaryTreeNode current = root;
-            while (current != null && !node.equNode(current))
+            int i = 0;
+            while (i != arraySize - 2)
             {
-                if (node.compareTwoNodes(current) == true)
-                {
-                    current = current.right;
-                }
-                else
-                {
-                    current = current.left;
-                }
-
-            }
-            if(current == null)
-            {
-                return null;
-            }
-            else
-            {
-                return current;
+                node newNode = new node(array[i].field1, array[i].field2, array[i].field3);
+                this.addNode(newNode);
             }
         }
 
-        public void initTreeFromFile(fileRW reader)
-        {
-        }
-
-        private bynaryTreeNode root;
+        public node root;
+        public info[] array;
+        public int arraySize;
     }
+
 }

@@ -9,14 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using bynaryTreePaySpace;
-using fileRWSpace;
+
+
 
 namespace cP
 {
     public partial class mainWindow : Form
     {
-        bynaryTreePay tree = new bynaryTreePay();
+        bynaryTree bynaryTreeSourseData = new bynaryTree();
         fileRW objRW = new fileRW();
 
         public mainWindow()
@@ -30,29 +30,25 @@ namespace cP
             {
                 objRW.openReader(openFileDialog.FileName);
             }
-           
-            string tmp = objRW.reader.ReadLine();
-            string[] tmpArr;
 
-            while (tmp[0] != '2')
+            string tmpStringFromFile = objRW.reader.ReadLine();
+            string[] parsedString;
+
+            while (tmpStringFromFile != null && tmpStringFromFile[0] != '2')
             {
-                payInfo payInfoObj = new payInfo();
-                bynaryTreeNode bynTreeNodeObj = new bynaryTreeNode();
-                tmpArr = objRW.readerPars(tmp);
-                tmpArr[0] = tmpArr[0].Remove(0, 2);
-                payInfoObj.initInfo(tmpArr);
-                bynTreeNodeObj.initNode(payInfoObj);
-                tree.addNode(bynTreeNodeObj);
-                this.listPayInfo.Rows.Add(tmpArr);
-                tmp = objRW.reader.ReadLine();
+                parsedString = objRW.readerPars(tmpStringFromFile);
+                parsedString[0] = parsedString[0].Remove(0, 2);
+                this.listBonusInfo.Rows.Add(parsedString);
+                tmpStringFromFile = objRW.reader.ReadLine();
             }
 
-            while (tmp != null && tmp[0] != '3')
+            while (tmpStringFromFile[0] != '3')
             {
-                tmpArr = objRW.readerPars(tmp);
-                tmpArr[0] = tmpArr[0].Remove(0, 2);
-                this.listBonusInfo.Rows.Add(tmpArr);
-                tmp = objRW.reader.ReadLine();
+                parsedString = objRW.readerPars(tmpStringFromFile);
+                parsedString[0] = parsedString[0].Remove(0, 2);
+                this.listPayInfo.Rows.Add(parsedString);
+                bynaryTreeSourseData.pushBackArray(parsedString[0], parsedString[1], parsedString[2]);
+                tmpStringFromFile = objRW.reader.ReadLine();
             }
 
             objRW.closeReader();
