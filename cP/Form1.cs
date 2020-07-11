@@ -51,8 +51,8 @@ namespace cP
                 tmpStringFromFile = objRW.reader.ReadLine();
             }
             bynaryTreeSourceData.initTreeFromePayArray(ref this.bynaryTreeSourceData.array);
-            node nd = new node("10", "Менеджер", "33");
-            bynaryTreeSourceData.transplantTwoNodes(nd);
+            node nd = new node("10", "Программист", "10");
+            bynaryTreeSourceData.removeNode(bynaryTreeSourceData.findNode(nd));
             Tuple<node, int> tp = bynaryTreeSourceData.findNode(nd);
             bynaryTreeSourceData.removeNode(tp);
             objRW.closeReader();

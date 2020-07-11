@@ -231,6 +231,7 @@ namespace bynTree
         public node left { get; set; }
         public node right { get; set; }
     }
+
     class bynaryTree
     {
         public bynaryTree()
@@ -449,7 +450,8 @@ namespace bynTree
                     return "Запись успешно удалена";
                 }
                 else
-                {   
+                {
+                    this.removeNodeWithTwoSons(nodeForRemove.Item1);
                     return "Запись успешно удалена";
                 }
             }
@@ -460,16 +462,17 @@ namespace bynTree
         }
         public void removeLeaf(node leaf)
         {
-            node current = leaf.parent;
-            if(current <= leaf)
+            node current = this.findNode(leaf).Item1.parent;
+            if (current.left == leaf)
             {
-                current.right = null;
+                current.left = null;
                 return;
             }
             else
             {
-                current.left = null;
+                current.right = null;
                 return;
+            
             }
         }
         public void removeNodeWithLeftSon(node nodeWithLeftSon)
@@ -495,10 +498,10 @@ namespace bynTree
         public void removeNodeWithTwoSons(node nodeWithTwoSons)
         {
             this.transplantTwoNodes(nodeWithTwoSons);
-            this.removeLeaf(nodeWithTwoSons);
 
             return;
         }
+
         public node findMaxInLeftSubTree(node subRoot)
         {
             node current = subRoot;
@@ -514,16 +517,63 @@ namespace bynTree
         {
             Tuple<node, int> tmp = this.findNode(nodeForTransplant);
             node maxInLeftSubTree = this.findMaxInLeftSubTree(tmp.Item1);
-            tmp.Item1.left.parent = maxInLeftSubTree;
-            tmp.Item1.right.parent = maxInLeftSubTree;
-            maxInLeftSubTree.parent = tmp.Item1;
-            tmp.Item1.left = null;
-            tmp.Item1.right = null;
-            //maxInLeftSubTree.left
 
+            if (root == tmp.Item1)
+            {
+                root = maxInLeftSubTree;
 
+                maxInLeftSubTree.left = tmp.Item1.left;
+                maxInLeftSubTree.right = tmp.Item1.right;
+                maxInLeftSubTree.parent.right = null;
+                maxInLeftSubTree.parent= null;
 
-            return;
+                tmp.Item1.left.parent = maxInLeftSubTree;
+                tmp.Item1.right.parent = maxInLeftSubTree;
+
+                tmp.Item1.left = null;
+                tmp.Item1.right = null;
+
+                return;
+            }
+            else if(tmp.Item1.left == maxInLeftSubTree)
+            {
+                maxInLeftSubTree.parent = tmp.Item1.parent;
+                tmp.Item1.parent.left = maxInLeftSubTree;
+
+                tmp.Item1.parent = null;
+                tmp.Item1.left = null;
+
+                maxInLeftSubTree.right = tmp.Item1.right;
+                tmp.Item1.right.parent = maxInLeftSubTree;
+                tmp.Item1.right = null;
+
+                return;
+            }
+            else
+            {
+                maxInLeftSubTree.left = tmp.Item1.left;
+                maxInLeftSubTree.right = tmp.Item1.right;
+
+                tmp.Item1.left.parent = maxInLeftSubTree;
+                tmp.Item1.right.parent = maxInLeftSubTree;
+
+                tmp.Item1.left = null;
+                tmp.Item1.right = null;
+
+                maxInLeftSubTree.parent = tmp.Item1.parent;
+                if (tmp.Item1.parent.left == tmp.Item1)
+                {
+                    tmp.Item1.parent.left = maxInLeftSubTree;
+                }
+                else
+                {
+                    tmp.Item1.parent.right = maxInLeftSubTree;
+                }
+
+                return;
+            }
+
+           
         }
 
         public node root;
