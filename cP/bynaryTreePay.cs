@@ -12,10 +12,10 @@ using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace cP
-{   
+namespace bynTree
+{
     struct info
-    {   
+    {
         public info(string field1, string field2, string field3)
         {
             this.field1 = field1;
@@ -26,16 +26,17 @@ namespace cP
         //1-не целая зп, 2 - [0] != !A, 3-[n] == /.!, 4 - кеф > 100, 5 - кеф > 100
         //6 < MROT
         public int validator(string field1, string field2, string field3)
-        {   
+        {
             int i = 0;
             foreach (char letter in field2)
-            {   if (i == 0)
+            {
+                if (i == 0)
                 {
                     i++;
                     continue;
                 }
                 if (1072 > letter || letter > 1103)
-                {   
+                {
                     return 3;
                 }
             }
@@ -230,7 +231,6 @@ namespace cP
         public node left { get; set; }
         public node right { get; set; }
     }
-
     class bynaryTree
     {
         public bynaryTree()
@@ -514,13 +514,14 @@ namespace cP
         {
             Tuple<node, int> tmp = this.findNode(nodeForTransplant);
             node maxInLeftSubTree = this.findMaxInLeftSubTree(tmp.Item1);
-            node topNode = tmp.Item1;
-            topNode.field1 = maxInLeftSubTree.field1;
-            topNode.field2 = maxInLeftSubTree.field2;
-            topNode.field3 = maxInLeftSubTree.field3;
-            maxInLeftSubTree.field1 = tmp.Item1.field1;
-            maxInLeftSubTree.field2 = tmp.Item1.field2;
-            maxInLeftSubTree.field3 = tmp.Item1.field3;
+            tmp.Item1.left.parent = maxInLeftSubTree;
+            tmp.Item1.right.parent = maxInLeftSubTree;
+            maxInLeftSubTree.parent = tmp.Item1;
+            tmp.Item1.left = null;
+            tmp.Item1.right = null;
+            //maxInLeftSubTree.left
+
+
 
             return;
         }
