@@ -16,7 +16,7 @@ namespace cP
 {
     public partial class mainWindow : Form
     {
-        bynaryTree bynaryTreeSourseData = new bynaryTree();
+        bynaryTree bynaryTreeSourceData = new bynaryTree();
         fileRW objRW = new fileRW();
 
         public mainWindow()
@@ -47,10 +47,14 @@ namespace cP
                 parsedString = objRW.readerPars(tmpStringFromFile);
                 parsedString[0] = parsedString[0].Remove(0, 2);
                 this.listPayInfo.Rows.Add(parsedString);
-                bynaryTreeSourseData.pushBackArray(parsedString[0], parsedString[1], parsedString[2]);
+                bynaryTreeSourceData.pushBackArray(parsedString[0], parsedString[1], parsedString[2]);
                 tmpStringFromFile = objRW.reader.ReadLine();
             }
-
+            bynaryTreeSourceData.initTreeFromePayArray(ref this.bynaryTreeSourceData.array);
+            node nd = new node("10", "Менеджер", "33");
+            bynaryTreeSourceData.transplantTwoNodes(nd);
+            Tuple<node, int> tp = bynaryTreeSourceData.findNode(nd);
+            bynaryTreeSourceData.removeNode(tp);
             objRW.closeReader();
         }
 

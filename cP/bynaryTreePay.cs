@@ -9,6 +9,8 @@ using System.CodeDom;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Drawing.Drawing2D;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace cP
 {   
@@ -166,6 +168,9 @@ namespace cP
 
         public static bool operator ==(node n1, node n2)
         {
+            n1 ??= new node("", "", "");
+            n2 ??= new node("", "", "");
+
             if (n1.field2.CompareTo(n2.field2) == 0)
             {
                 return true;
@@ -177,6 +182,9 @@ namespace cP
         }
         public static bool operator !=(node n1, node n2)
         {
+            n1 ??= new node("", "", "");
+            n2 ??= new node("", "", "");
+
             if (n1.field2.CompareTo(n2.field2) == 1 || n1.field2.CompareTo(n2.field2) == -1)
             {
                 return true;
@@ -188,6 +196,9 @@ namespace cP
         }
         public static bool operator >=(node n1, node n2)
         {
+            n1 ??= new node("", "", "");
+            n2 ??= new node("", "", "");
+
             if (n1.field2.CompareTo(n2.field2) == 1 || n1.field2.CompareTo(n2.field2) == 0)
             {
                 return true;
@@ -199,6 +210,9 @@ namespace cP
         }
         public static bool operator <=(node n1, node n2)
         {
+            n1 ??= new node("", "", "");
+            n2 ??= new node("", "", "");
+
             if (n1.field2.CompareTo(n2.field2) == -1 || n1.field2.CompareTo(n2.field2) == 0)
             {
                 return true;
@@ -355,11 +369,160 @@ namespace cP
         public void initTreeFromePayArray(ref info[] array)
         {
             int i = 0;
-            while (i != arraySize - 2)
+            while (i != arraySize - 1)
             {
                 node newNode = new node(array[i].field1, array[i].field2, array[i].field3);
                 this.addNode(newNode);
+                i++;
             }
+        }
+
+        //empty tree, dont find
+        public Tuple<node, int> findNode(node nodeForFind)
+        {
+            if (this.isEmpty() == true)
+            {
+                node finedNode = new node(null, null, null);
+                return Tuple.Create(finedNode, -1);
+            }
+            else
+            {
+                node current = root;
+                int counter = 1;
+                while(current != null && current != nodeForFind)
+                {
+                    if(current <= nodeForFind)
+                    {
+                        current = current.right;
+                    }
+                    else
+                    {
+                        current = current.left;
+                    }
+                    counter++;
+                }
+
+                if (current == null)
+                {
+                    node finedNode = new node(null, null, null);
+                    return Tuple.Create(finedNode, 0);
+                }
+                else
+                {
+                    return Tuple.Create(current, counter);
+                }
+            }
+        }
+        public Tuple<string, string> findHandler(Tuple<node, int> finedNode)
+        {
+            if (finedNode.Item2 == -1)
+            {
+                return Tuple.Create("Список пуст - запись не найдена", ""); 
+            }
+            else if(finedNode.Item2 == -2)
+            {
+                return Tuple.Create("Запись не содержится в справочнике", "");
+            }
+            else
+            {   
+                return Tuple.Create("Запись содержится в справочнике", "число сравнений - " + finedNode.Item2.ToString());
+            }
+        }
+
+        public string removeNode(Tuple<node, int> nodeForRemove)
+        {
+            if (nodeForRemove.Item2 > 0)
+            {
+                if (nodeForRemove.Item1.left == null && nodeForRemove.Item1.right == null)
+                {
+                    this.removeLeaf(nodeForRemove.Item1);
+                    return "Запись успешно удалена";
+                }
+                else if(nodeForRemove.Item1.left != null && nodeForRemove.Item1.right == null)
+                {
+                    this.removeNodeWithLeftSon(nodeForRemove.Item1);
+                    return "Запись успешно удалена";
+                }
+                else if(nodeForRemove.Item1.left == null && nodeForRemove.Item1.right != null)
+                {
+                    this.removeNodeWithRightSon(nodeForRemove.Item1);
+                    return "Запись успешно удалена";
+                }
+                else
+                {   
+                    return "Запись успешно удалена";
+                }
+            }
+            else 
+            {
+                return this.findHandler(nodeForRemove).Item1;
+            }
+        }
+        public void removeLeaf(node leaf)
+        {
+            node current = leaf.parent;
+            if(current <= leaf)
+            {
+                current.right = null;
+                return;
+            }
+            else
+            {
+                current.left = null;
+                return;
+            }
+        }
+        public void removeNodeWithLeftSon(node nodeWithLeftSon)
+        {
+            node current = nodeWithLeftSon.parent;
+            current.left = nodeWithLeftSon.left;
+            nodeWithLeftSon.left.parent = current;
+            nodeWithLeftSon.parent = null;
+            nodeWithLeftSon.left = null;
+
+            return;
+        }
+        public void removeNodeWithRightSon(node nodeWithRightSon)
+        {
+            node current = nodeWithRightSon.parent;
+            current.right = nodeWithRightSon.right;
+            nodeWithRightSon.right.parent = current;
+            nodeWithRightSon.parent = null;
+            nodeWithRightSon.right = null;
+
+            return;
+        }
+        public void removeNodeWithTwoSons(node nodeWithTwoSons)
+        {
+            this.transplantTwoNodes(nodeWithTwoSons);
+            this.removeLeaf(nodeWithTwoSons);
+
+            return;
+        }
+        public node findMaxInLeftSubTree(node subRoot)
+        {
+            node current = subRoot;
+            current = current.left;
+            while(current.right != null) 
+            {
+                current = current.right;
+            }
+
+            return current;
+        }
+        public void transplantTwoNodes(node nodeForTransplant)
+        {
+            Tuple<node, int> tmp = this.findNode(nodeForTransplant);
+            node maxInLeftSubTree = this.findMaxInLeftSubTree(tmp.Item1);
+            node topNode = tmp.Item1;
+            topNode.field1 = maxInLeftSubTree.field1;
+            topNode.field2 = maxInLeftSubTree.field2;
+            topNode.field3 = maxInLeftSubTree.field3;
+            maxInLeftSubTree.field1 = tmp.Item1.field1;
+            maxInLeftSubTree.field2 = tmp.Item1.field2;
+            maxInLeftSubTree.field3 = tmp.Item1.field3;
+
+            return;
         }
 
         public node root;
