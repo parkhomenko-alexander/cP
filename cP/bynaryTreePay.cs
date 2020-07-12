@@ -113,9 +113,8 @@ namespace bynTree
         {
             int resCompFl1 = i1.field1.CompareTo(i2.field1);
             int resCompFl2 = i1.field2.CompareTo(i2.field2);
-            int resCompFl3 = i1.field3.CompareTo(i2.field3);
 
-            if (resCompFl1 == 0 && resCompFl2 == 0 && resCompFl3 == 0)
+            if (resCompFl1 == 0 && resCompFl2 == 0)
             {
                 return true;
             }
@@ -128,9 +127,8 @@ namespace bynTree
         {
             int resCompFl1 = i1.field1.CompareTo(i2.field1);
             int resCompFl2 = i1.field2.CompareTo(i2.field2);
-            int resCompFl3 = i1.field3.CompareTo(i2.field3);
 
-            if (resCompFl1 != 0 || resCompFl2 != 0 || resCompFl3 != 0)
+            if (resCompFl1 != 0 || resCompFl2 != 0)
             {
                 return true;
             }
@@ -171,8 +169,8 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-            string strN1 = n1.field2 + n1.field1 + n1.field3;
-            string strN2 = n2.field2 + n2.field1 + n2.field3;
+            string strN1 = n1.field2 + n1.field1;
+            string strN2 = n2.field2 + n2.field1;
             if (strN1.CompareTo(strN2) == 0)
             {
                 return true;
@@ -201,11 +199,22 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-            string strN1 = n1.field2 + n1.field1 + n1.field3;
-            string strN2 = n2.field2 + n2.field1 + n2.field3;
-            if (strN1.CompareTo(strN2) == 1 || strN1.CompareTo(strN2) == 0)
+            string strN1 = n1.field2;
+            string strN2 = n2.field2;
+            if (strN1.CompareTo(strN2) == 1)
             {
                 return true;
+            }
+            if (strN1.CompareTo(strN2) == 0)
+            {
+                if (Convert.ToInt32(n1.field1) > Convert.ToInt32(n2.field1))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -216,11 +225,22 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-            string strN1 = n1.field2 + n1.field1 + n1.field3;
-            string strN2 = n2.field2 + n2.field1 + n2.field3;
-            if (strN1.CompareTo(strN2) == -1 || strN1.CompareTo(strN2) == 0)
+            string strN1 = n1.field2;
+            string strN2 = n2.field2;
+            if (strN1.CompareTo(strN2) == -1)
             {
                 return true;
+            }
+            if (strN1.CompareTo(strN2) == 0)
+            {
+                if (Convert.ToInt32(n1.field1) < Convert.ToInt32(n2.field1))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -482,7 +502,14 @@ namespace bynTree
         public void removeNodeWithLeftSon(node nodeWithLeftSon)
         {
             node current = nodeWithLeftSon.parent;
-            current.left = nodeWithLeftSon.left;
+            if (current.left == nodeWithLeftSon)
+            {
+                current.left = nodeWithLeftSon.left;
+            }
+            else
+            {
+                current.right = nodeWithLeftSon.left;
+            }
             nodeWithLeftSon.left.parent = current;
             nodeWithLeftSon.parent = null;
             nodeWithLeftSon.left = null;
@@ -492,7 +519,14 @@ namespace bynTree
         public void removeNodeWithRightSon(node nodeWithRightSon)
         {
             node current = nodeWithRightSon.parent;
-            current.right = nodeWithRightSon.right;
+            if(current.left == nodeWithRightSon)
+            {
+                current.left = nodeWithRightSon.right;
+            }
+            else
+            {
+                current.right = nodeWithRightSon.right;
+            }
             nodeWithRightSon.right.parent = current;
             nodeWithRightSon.parent = null;
             nodeWithRightSon.right = null;
