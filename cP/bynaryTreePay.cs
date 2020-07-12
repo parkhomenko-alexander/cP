@@ -171,8 +171,9 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-
-            if (n1.field2.CompareTo(n2.field2) == 0)
+            string strN1 = n1.field2 + n1.field1 + n1.field3;
+            string strN2 = n2.field2 + n2.field1 + n2.field3;
+            if (strN1.CompareTo(strN2) == 0)
             {
                 return true;
             }
@@ -185,8 +186,9 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-
-            if (n1.field2.CompareTo(n2.field2) == 1 || n1.field2.CompareTo(n2.field2) == -1)
+            string strN1 = n1.field2 + n1.field1 + n1.field3;
+            string strN2 = n2.field2 + n2.field1 + n2.field3;
+            if (strN1.CompareTo(strN2) == 1 || strN1.CompareTo(strN2) == -1)
             {
                 return true;
             }
@@ -199,8 +201,9 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-
-            if (n1.field2.CompareTo(n2.field2) == 1 || n1.field2.CompareTo(n2.field2) == 0)
+            string strN1 = n1.field2 + n1.field1 + n1.field3;
+            string strN2 = n2.field2 + n2.field1 + n2.field3;
+            if (strN1.CompareTo(strN2) == 1 || strN1.CompareTo(strN2) == 0)
             {
                 return true;
             }
@@ -213,8 +216,9 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-
-            if (n1.field2.CompareTo(n2.field2) == -1 || n1.field2.CompareTo(n2.field2) == 0)
+            string strN1 = n1.field2 + n1.field1 + n1.field3;
+            string strN2 = n2.field2 + n2.field1 + n2.field3;
+            if (strN1.CompareTo(strN2) == -1 || strN1.CompareTo(strN2) == 0)
             {
                 return true;
             }
