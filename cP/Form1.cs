@@ -70,32 +70,35 @@ namespace cP
                 objRW.openReader(openFileDialog.FileName);
             }
 
-            string tmp = objRW.reader.ReadLine();
-            string[] tmpArr;
+            string tmpStringFromFile = objRW.reader.ReadLine();
+            string[] parsedString;
 
-            while (tmp[0] != '2')
+            while (tmpStringFromFile[0] != '2')
             {
-                tmp = objRW.reader.ReadLine();
+                tmpStringFromFile = objRW.reader.ReadLine();
             }
-            while (tmp != null && tmp[0] != '3')
+            while (tmpStringFromFile[0] != '3')
             {
-                tmp = objRW.reader.ReadLine();
+                tmpStringFromFile = objRW.reader.ReadLine();
             }
 
-            while (tmp[0] != '4')
+            while (tmpStringFromFile[0] != '4')
             {
-                tmpArr = objRW.readerPars(tmp);
-                tmpArr[0] = tmpArr[0].Remove(0, 2);
-                this.listPersonnelInfo.Rows.Add(tmpArr);
-                tmp = objRW.reader.ReadLine();
+                parsedString = objRW.readerPars(tmpStringFromFile);
+                parsedString[0] = parsedString[0].Remove(0, 2);
+                avlTree.info record = new avlTree.info(parsedString[0], parsedString[1], parsedString[2]);
+                this.listPersonnelInfo.Rows.Add(parsedString);
+                avl.pushBackArray(parsedString[0], parsedString[1], parsedString[2]);
+                avl.Add(parsedString[1], parsedString[0]);
+                tmpStringFromFile = objRW.reader.ReadLine();
             }
-            while (tmp != null)
-            {
-                tmpArr = objRW.readerPars(tmp);
-                tmpArr[0] = tmpArr[0].Remove(0, 2);
-                this.listEmployeeInfo.Rows.Add(tmpArr);
-                tmp = objRW.reader.ReadLine();
-            }
+            //while (tmp != null)
+            //{
+            //    tmpArr = objRW.readerPars(tmp);
+            //    tmpArr[0] = tmpArr[0].Remove(0, 2);
+            //    this.listEmployeeInfo.Rows.Add(tmpArr);
+            //    tmp = objRW.reader.ReadLine();
+            //}
             objRW.closeReader();
         }
 
@@ -109,9 +112,11 @@ namespace cP
         {
             int[] array = new int[16];
             string str = "Директор";
+            int ha1 = pMap.hFunction1(str);
+            int ha2 = pMap.hFunction2(str);
             for(int i = 0; i < 16; i++)
             {
-                array[i] = (pMap.hFunction1(str) + i * pMap.hFunction2(str))%16;
+                array[i] = (ha1 + i * ha2)%16;
             }
         }
     }

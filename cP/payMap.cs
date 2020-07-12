@@ -224,9 +224,9 @@ namespace pMap
             }
             else
             {
+                int hashAdressLevel2 = this.hFunction2(field2);
                 for (int i = 0; i < arrayForReportSize; i++)
                 {
-                    int hashAdressLevel2 = this.hFunction2(field2);
                     int insertionAdress = (hashAdreeLevel1 + i * hashAdressLevel2) % arrayForReportSize;
                     if (this.arrayForReport[insertionAdress].field2 == null || this.arrayForReport[insertionAdress].field2 == "deleted")
                     {

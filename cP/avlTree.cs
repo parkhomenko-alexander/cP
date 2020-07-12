@@ -160,9 +160,14 @@ namespace avlTree
                 else return false;
             }
         }
+
         Node root;
+        public info[] array;
+        public int arraySize { get; set; }
         public AVL()
         {
+            arraySize = 1;
+            array = new info[arraySize];
         }
 
         public void Add(string vacancy, string FIO)
@@ -403,6 +408,79 @@ namespace avlTree
             Node pivot = parent.right;
             parent.right = RotateLL(pivot);
             return RotateRR(parent);
+        }
+
+        public string pushBackArray(string field1, string field2, string field3)
+        {
+            info record = new info(field2, field1, field3);
+
+            if (arraySize == 1)
+            {
+                array[arraySize - 1] = record;
+                arraySize++;
+                Array.Resize(ref array, arraySize);
+                return "Запись успешно добавлена";
+            }
+            else
+            {
+                array[arraySize - 1] = record;
+                arraySize++;
+                Array.Resize(ref array, arraySize);
+                return "Запись успешно добавлена";
+            }
+        }
+        public string eraseFromArray(string field2, string field1, string field3)
+        {
+            info record = new info(field2, field1, field3);
+
+            if (arraySize == 0)
+            {
+                return "Удаление невозможно справочник пуст";
+            }
+            else
+            {
+                int refRecordToRemove = this.findInArray(record);
+                int i = 0;
+                if (refRecordToRemove != -1)
+                {
+                    this.swapRecords(ref this.array, i);
+                    arraySize--;
+                    Array.Resize(ref this.array, arraySize);
+                    return "Запись успешно удалена";
+                }
+                else
+                {
+                    return "Удаление невозможно запись не содержится в справочнике";
+                }
+
+            }
+        }
+        public void swapRecords(ref info[] ar, int refRecordToRemove)
+        {
+            array[refRecordToRemove] = array[arraySize - 2];
+            array[arraySize - 2] = array[arraySize - 1];
+
+            return;
+        }
+
+        //-1 - dont find
+        public int findInArray(info record)
+        {
+            int i = 0;
+            foreach (info rec in array)
+            {
+                if (i == arraySize - 1)
+                {
+                    i = -1;
+                    break;
+                }
+                if (rec == record)
+                {
+                    break;
+                }
+                i++;
+            }
+            return i;
         }
     }
 }
