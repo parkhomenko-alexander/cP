@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 using System.Threading;
+using cP;
 
 namespace bynTree
 {
@@ -23,84 +24,80 @@ namespace bynTree
             this.field3 = field3;
         }
 
-        //1-не целая зп, 2 - [0] != !A, 3-[n] == /.!, 4 - кеф > 100, 5 - кеф > 100
-        //6 < MROT
+        //1-длина профессии, 2-[n] == не строчная кирилица, 
+        // 3 - в записи стажа не толко цифры, 4 - в записи коефа  5- стаж > 100 или меньше 0, 6 - кеф > 100
+        //0 - все нормально
         public int validator(string field1, string field2, string field3)
         {
-            int i = 0;
-            foreach (char letter in field2)
+            if(field2.Length < 1 || field2.Length > 30)
             {
-                if (i == 0)
-                {
-                    i++;
-                    continue;
-                }
-                if (1072 > letter || letter > 1103)
-                {
-                    return 3;
-                }
+                return 1;
             }
 
-            if (1040 > field2[0] || field2[0] > 1071)
+            foreach (char letter in field2)
             {
-                return 2;
+                if (1072 > letter || letter > 1103)
+                {
+                    return 2;
+                }
             }
 
             foreach (char letter in field1)
             {
                 if (48 > letter || letter > 57)
                 {
-                    return 1;
+                    return 3;
                 }
             }
-            if (field3.Length > 3)
-            {
-                return 4;
-            }
+
             foreach (char letter in field3)
             {
                 if (48 > letter || letter > 57)
                 {
-                    return 5;
+                    return 4;
                 }
             }
+
             if (Convert.ToInt32(field1) < 12130)
+            {
+                return 5;
+            }
+
+            if (Convert.ToInt32(field3) < 0 || Convert.ToInt32(field3) > 100)
             {
                 return 6;
             }
+
+
             return 0;
         }
         public string errorHandler(int number)
         {
             switch (number)
             {
-                case 0:
-                    {
-                        return "";
-                    }
                 case 1:
                     {
-                        return "Данные о з\\п некорректны";
+                        return "Неверно записана должность";
                     }
                 case 2:
                     {
-                        return "Нарушение регистра в записи профессии";
+                        return "Неверна записана должность";
                     }
                 case 3:
                     {
-                        return "Профессия записана не на кирилице";
+                        return "В записи стажа использованы не только цифры";
                     }
                 case 4:
                     {
-                        return "Коэффциент определён на [0 .. 100]";
+                        return "В записи коеффициента использованы не только цифры";
                     }
                 case 5:
                     {
-                        return "Коэффициент определён на [0 .. 100]";
+                        return "Некорректное значение стажа";
                     }
                 case 6:
                     {
-                        return "З\\п не может быть меньше МРОТ";
+                        return "Некорректное значение коеффициента";
                     }
                 default:
                     {
@@ -141,7 +138,6 @@ namespace bynTree
         public string field1 { get; set; }
         public string field2 { get; set; }
         public string field3 { get; set; }
-
     }
 
     class node
@@ -533,25 +529,7 @@ namespace bynTree
 
             return;
         }
-        public void removeNodeWithTwoSons(node nodeWithTwoSons)
-        {
-            this.transplantTwoNodes(nodeWithTwoSons);
-
-            return;
-        }
-
-        public node findMaxInLeftSubTree(node subRoot)
-        {
-            node current = subRoot;
-            current = current.left;
-            while(current.right != null) 
-            {
-                current = current.right;
-            }
-
-            return current;
-        }
-        public void transplantTwoNodes(node nodeForTransplant)
+        public void removeNodeWithTwoSons(node nodeForTransplant)
         {
             Tuple<node, int> tmp = this.findNode(nodeForTransplant);
             node maxInLeftSubTree = this.findMaxInLeftSubTree(tmp.Item1);
@@ -563,7 +541,7 @@ namespace bynTree
                 maxInLeftSubTree.left = tmp.Item1.left;
                 maxInLeftSubTree.right = tmp.Item1.right;
                 maxInLeftSubTree.parent.right = null;
-                maxInLeftSubTree.parent= null;
+                maxInLeftSubTree.parent = null;
 
                 tmp.Item1.left.parent = maxInLeftSubTree;
                 tmp.Item1.right.parent = maxInLeftSubTree;
@@ -573,7 +551,7 @@ namespace bynTree
 
                 return;
             }
-            else if(tmp.Item1.left == maxInLeftSubTree)
+            else if (tmp.Item1.left == maxInLeftSubTree)
             {
                 maxInLeftSubTree.parent = tmp.Item1.parent;
                 tmp.Item1.parent.left = maxInLeftSubTree;
@@ -611,8 +589,27 @@ namespace bynTree
                 return;
             }
 
-           
+
         }
+
+        public node findMaxInLeftSubTree(node subRoot)
+        {
+            node current = subRoot;
+            current = current.left;
+            while(current.right != null) 
+            {
+                current = current.right;
+            }
+
+            return current;
+        }
+       
+        //public node symmetricTraversal(node root)
+        //{
+        //    findPayInfo fpi = new findPayInfo();
+        //    fpi.Show();
+        //    return ;
+        //} 
 
         public node root;
         public info[] array;

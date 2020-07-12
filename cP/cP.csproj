@@ -20,7 +20,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-<LangVersion>8.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-<LangVersion>8.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="avlTree.cs" />
     <Compile Include="bynaryTreePay.cs" />
     <Compile Include="fileRW.cs" />
     <Compile Include="Form1.cs">
@@ -63,7 +64,7 @@
     <Compile Include="findPayInfo.Designer.cs">
       <DependentUpon>findPayInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="map.cs" />
+    <Compile Include="payMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

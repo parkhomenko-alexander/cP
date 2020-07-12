@@ -38,6 +38,9 @@
             this.getPayInfo = new System.Windows.Forms.Button();
             this.initBynPayInfo = new System.Windows.Forms.Button();
             this.listPayInfo = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backGroundForPersonnelInfo = new System.Windows.Forms.TabPage();
             this.initPersonnelInfo = new System.Windows.Forms.Button();
             this.listPersonnelInfo = new System.Windows.Forms.DataGridView();
@@ -52,9 +55,7 @@
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.listBonusInfo)).BeginInit();
             this.tabForm.SuspendLayout();
             this.backGroundPayList.SuspendLayout();
@@ -121,6 +122,7 @@
             // 
             // backGroundPayList
             // 
+            this.backGroundPayList.Controls.Add(this.button1);
             this.backGroundPayList.Controls.Add(this.getPayInfo);
             this.backGroundPayList.Controls.Add(this.initBynPayInfo);
             this.backGroundPayList.Controls.Add(this.listPayInfo);
@@ -168,6 +170,24 @@
             this.listPayInfo.RowTemplate.Height = 24;
             this.listPayInfo.Size = new System.Drawing.Size(715, 400);
             this.listPayInfo.TabIndex = 2;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Должность";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Стаж (лет)";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Премия (%)";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
             // backGroundForPersonnelInfo
             // 
@@ -284,23 +304,15 @@
             this.отчётToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
             this.отчётToolStripMenuItem.Text = "Отчёт";
             // 
-            // dataGridViewTextBoxColumn1
+            // button1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Должность";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Стаж (лет)";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Премия (%)";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.button1.Location = new System.Drawing.Point(446, 418);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 67);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // mainWindow
             // 
@@ -354,6 +366,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

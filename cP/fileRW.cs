@@ -44,6 +44,17 @@ namespace cP
             return words;
         }
 
+        //перегруженный для ХТ
+        public string[] readerPars(string tmp, int signature)
+        {
+            string[] words = tmp.Split(new[] { "; " }, System.StringSplitOptions.None);
+            Array.Resize(ref words, words.Length + 1);
+            words[words.Length - 1] = words[words.Length - 2];
+            words[words.Length - 2] = words[words.Length - 3];
+            words[words.Length - 3] = words[words.Length - 4];
+            return words;
+        }
+
         //отключение ридера
         public StreamReader closeReader()
         {
