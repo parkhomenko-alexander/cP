@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace pMap
 {
-    struct info
+    public struct info
     {
 
         public info(string field1, string field2, string field3)
@@ -131,7 +132,7 @@ namespace pMap
         public string field2 { get; set; }
         public string field3 { get; set; }
     }
-    class payMap
+    public class payMap
     {
         public payMap()
         {   
@@ -251,12 +252,13 @@ namespace pMap
             else
             {
                 int hasAdreeLevel2 = this.hFunction2(record.field2);
-                for (int i = 0; i < arrayForReportSize; i++)
+                for (int i = 1; i < arrayForReportSize; i++)
                 {
                    int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
                    if (this.arrayForReport[insertionAdress].field2 == null || this.arrayForReport[insertionAdress].field2 == "deleted")
                    {
                         this.arrayForReport[insertionAdress] = record;
+                        return;
                    }
                    else
                    {
@@ -268,7 +270,145 @@ namespace pMap
             this.recorded++;
             this.recordedCoef = recorded / arrayForReportSize * 100;
         }
+        public void removeFromHashTable(info record)
+        {
+            int hashAdreeLevel1 = this.hFunction1(record.field2);
+            if (this.arrayForReport[hashAdreeLevel1].field2 == record.field2)
+            {
+                this.arrayForReport[hashAdreeLevel1].field1 = "deleted";
+                this.arrayForReport[hashAdreeLevel1].field2 = "deleted";
+                this.arrayForReport[hashAdreeLevel1].field3 = "deleted";
+            }
+            else
+            {
+                int hasAdreeLevel2 = this.hFunction2(record.field2);
+                for (int i = 1; i < arrayForReportSize; i++)
+                {
+                    int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
+                    if (this.arrayForReport[insertionAdress].field2 == record.field2)
+                    {
+                        this.arrayForReport[insertionAdress].field1 = "deleted";
+                        this.arrayForReport[insertionAdress].field2 = "deleted";
+                        this.arrayForReport[insertionAdress].field3 = "deleted";
+                        return;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+        }
 
+        /// <summary>
+        /// Поиск по всем трём полям
+        /// </summary>
+        public Tuple<int, info, int> findInHashTable(info record)
+        {
+            int comparisonCounter = 1;
+            if (recorded == 0)
+            {
+                info returnRec = new info();
+                return Tuple.Create(-1, returnRec, -1);
+            }
+            else
+            {   
+                int hashAdreeLevel1 = hFunction1(record.field2);
+                if (this.arrayForReport[hashAdreeLevel1].field2 == record.field2)
+                {
+                    comparisonCounter++;
+                    return Tuple.Create(hashAdreeLevel1, this.arrayForReport[hashAdreeLevel1], comparisonCounter);
+                }
+                else
+                {
+                    int hasAdreeLevel2 = this.hFunction2(record.field2);
+                    for (int i = 1; i < arrayForReportSize; i++)
+                    {
+                        comparisonCounter++;
+                        int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
+                        if (this.arrayForReport[insertionAdress].field2 == record.field2)
+                        {
+                            return Tuple.Create(insertionAdress, this.arrayForReport[insertionAdress], comparisonCounter);
+                        }
+                        else
+                        {   if(this.arrayForReport[insertionAdress].field2 == "deleted")
+                            {
+                                continue;
+                            }
+                            else 
+                            {
+                                return Tuple.Create(-2, this.arrayForReport[insertionAdress], -2);
+                            }
+                        }
+                    }
+                }
+
+            }
+            return Tuple.Create(-2, new info(), comparisonCounter);
+        }
+        
+        /// <summary>
+        /// Поиск по должности
+        /// </summary>
+        public Tuple<int, info, int, string> findInHashTable(string post)
+        {
+            int comparisonCounter = 1;
+            if (recorded == 0)
+            {
+                info returnRec = new info();
+                return Tuple.Create(-1, returnRec, -1, "Справочник не содержит записей");
+            }
+            else
+            {
+                int hashAdreeLevel1 = hFunction1(post);
+                if (this.arrayForReport[hashAdreeLevel1].field2 == post)
+                {
+                    return Tuple.Create(hashAdreeLevel1, this.arrayForReport[hashAdreeLevel1], comparisonCounter, "Запись найдена");
+                }
+                else
+                {
+                    int hasAdreeLevel2 = this.hFunction2(post);
+                    for (int i = 1; i < arrayForReportSize; i++)
+                    {
+                        comparisonCounter++;
+                        int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
+                        if (this.arrayForReport[insertionAdress].field2 == post)
+                        {
+                            return Tuple.Create(insertionAdress, this.arrayForReport[insertionAdress], comparisonCounter, "Запись найдена");
+                        }
+                        else
+                        {
+                            if (this.arrayForReport[insertionAdress].field2 == null)
+                            {
+                                return Tuple.Create(-2, this.arrayForReport[insertionAdress], -2, "Запись не содержится в справочнике");
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+            }
+            return Tuple.Create(-2, new info(), comparisonCounter, "");
+        }
+
+        public Tuple<int, info, string> findInHashTableHandler(Tuple<int, info, int> returnedRecord)
+        {
+            if(returnedRecord.Item3 == -1)
+            {
+                return Tuple.Create(-1, returnedRecord.Item2, "Справочник не содержит записей");
+            }
+            else if (returnedRecord.Item3 == -2)
+            {
+                return Tuple.Create(-2, returnedRecord.Item2, "Запись не содержится в справочнике");
+            }
+            else
+            {
+                return Tuple.Create(returnedRecord.Item1, returnedRecord.Item2, "Запись найдена за  " + returnedRecord.Item3.ToString() + " сравнений");
+            }
+        }
         public string checkForReHashing()
         {
             if (this.recorded < 0.75)
@@ -308,19 +448,19 @@ namespace pMap
                 result += letter;
             }
 
-            result *= key[0];
+            //result *= key[0];
+            result += 23;
 
             if(result % 2 == 0)
             {
-                return result % arrayForReportSize + 1;
+                return result + 1;
             }
             else
             {
-                return result % arrayForReportSize;
+                return result;
             }
         }
 
-        // public int hFunction2(int num);
         public info[] array;
         public info[] arrayForReport;
         public double recordedCoef { get; set; }

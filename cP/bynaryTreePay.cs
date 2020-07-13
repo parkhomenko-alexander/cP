@@ -15,7 +15,7 @@ using cP;
 
 namespace bynTree
 {
-    struct info
+    public struct info
     {
         public info(string field1, string field2, string field3)
         {
@@ -140,7 +140,7 @@ namespace bynTree
         public string field3 { get; set; }
     }
 
-    class node
+   public class node
     {
         public node()
         {
@@ -252,7 +252,7 @@ namespace bynTree
         public node right { get; set; }
     }
 
-    class bynaryTree
+   public class bynaryTree
     {
         public bynaryTree()
         {
@@ -434,19 +434,19 @@ namespace bynTree
                 }
             }
         }
-        public Tuple<string, string> findHandler(Tuple<node, int> finedNode)
+        public Tuple<node, string> findHandler(Tuple<node, int> finedNode)
         {
             if (finedNode.Item2 == -1)
             {
-                return Tuple.Create("Список пуст - запись не найдена", ""); 
+                return Tuple.Create(finedNode.Item1, "Справочник пуст - запись не найдена"); 
             }
             else if(finedNode.Item2 == -2)
             {
-                return Tuple.Create("Запись не содержится в справочнике", "");
+                return Tuple.Create(finedNode.Item1, "Запись не содержится в справочнике");
             }
             else
             {   
-                return Tuple.Create("Запись содержится в справочнике", "число сравнений - " + finedNode.Item2.ToString());
+                return Tuple.Create(finedNode.Item1, "Запись найдена, число сравнений - " + finedNode.Item2.ToString());
             }
         }
 
@@ -477,7 +477,7 @@ namespace bynTree
             }
             else 
             {
-                return this.findHandler(nodeForRemove).Item1;
+                return this.findHandler(nodeForRemove).Item2;
             }
         }
         public void removeLeaf(node leaf)
