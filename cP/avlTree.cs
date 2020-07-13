@@ -44,7 +44,7 @@ namespace avlTree
                 }
                 else j = 1;
 
-                if (j == 1 && (1072 > field1[i] || field1[i] > 1105 || field1[i] == 1104))
+                if (j == 1 && (1072 > field1[i] || field1[i] > 1105 || field1[i] == 1104) && (5 > field1.Length || field1.Length > 152))
                 {
                     return 4;
                 }
@@ -55,6 +55,8 @@ namespace avlTree
                     if (k > 2)
                         return 4;
                 }
+                if (k < 2)
+                    return 4;
             }
             return 0;
         }
@@ -168,6 +170,10 @@ namespace avlTree
         {
             arraySize = 1;
             array = new info[arraySize];
+        }
+        public void clear()
+        {
+            root = null;
         }
 
         public void Add(string vacancy, string FIO)

@@ -460,7 +460,7 @@ namespace pMap
                 return result;
             }
         }
-
+         
         public info[] array;
         public info[] arrayForReport;
         public double recordedCoef { get; set; }

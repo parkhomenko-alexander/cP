@@ -97,6 +97,7 @@
             this.listBonusInfo.Size = new System.Drawing.Size(715, 400);
             this.listBonusInfo.TabIndex = 2;
             this.listBonusInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listBonusInfo_CellContentClick);
+            this.listBonusInfo.Click += new System.EventHandler(this.listBonusInfo_Click);
             // 
             // Column7
             // 

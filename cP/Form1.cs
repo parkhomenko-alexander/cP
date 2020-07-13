@@ -157,5 +157,13 @@ namespace cP
         {
 
         }
+
+        private void listBonusInfo_Click(object sender, EventArgs e)
+        {
+            int indexRow = listBonusInfo.SelectedCells[0].RowIndex;
+            //if(index)
+            this.listBonusInfo.Rows[indexRow].Selected = false;
+
+        }
     }
 }
