@@ -124,45 +124,47 @@ namespace avlTree
 
     }
 
+    class Node
+    {
+        public string vacancy;
+        public string FIO;
+        public string unit;
+        public Node left;
+        public Node right;
+        public Node(string vacancy, string FIO, string unit)
+        {
+            this.vacancy = vacancy;
+            this.FIO = FIO;
+            this.unit = unit;
+        }
+        public static bool operator >(Node c1, Node c2)
+        {
+            if (String.Compare(c1.vacancy, c2.vacancy) > 0)
+                return true;
+            else if (String.Compare(c1.vacancy, c2.vacancy) < 0)
+                return false;
+            else if (String.Compare(c1.FIO, c2.FIO) > 0)
+                return true;
+            else if (String.Compare(c1.FIO, c2.FIO) < 0)
+                return false;
+            else return false;
+        }
+        public static bool operator <(Node c1, Node c2)
+        {
+            if (String.Compare(c1.vacancy, c2.vacancy) > 0)
+                return false;
+            else if (String.Compare(c1.vacancy, c2.vacancy) < 0)
+                return true;
+            else if (String.Compare(c1.FIO, c2.FIO) > 0)
+                return false;
+            else if (String.Compare(c1.FIO, c2.FIO) < 0)
+                return true;
+            else return false;
+        }
+    }
+
     class AVL
     {
-        class Node
-        {
-            public string vacancy;
-            public string FIO;
-            public Node left;
-            public Node right;
-            public Node(string vacancy, string FIO)
-            {
-                this.vacancy = vacancy;
-                this.FIO = FIO;
-            }
-            public static bool operator >(Node c1, Node c2)
-            {
-                if (String.Compare(c1.vacancy, c2.vacancy) > 0)
-                    return true;
-                else if (String.Compare(c1.vacancy, c2.vacancy) < 0)
-                    return false;
-                else if (String.Compare(c1.FIO, c2.FIO) > 0)
-                        return true;
-                    else if (String.Compare(c1.FIO, c2.FIO) < 0)
-                        return false;
-                    else return false;
-            }
-            public static bool operator <(Node c1, Node c2)
-            {
-                if (String.Compare(c1.vacancy, c2.vacancy) > 0)
-                    return false;
-                else if (String.Compare(c1.vacancy, c2.vacancy) < 0)
-                    return true;
-                else if (String.Compare(c1.FIO, c2.FIO) > 0)
-                    return false;
-                else if (String.Compare(c1.FIO, c2.FIO) < 0)
-                    return true;
-                else return false;
-            }
-        }
-
         Node root;
         public info[] array;
         public int arraySize { get; set; }
@@ -171,14 +173,10 @@ namespace avlTree
             arraySize = 1;
             array = new info[arraySize];
         }
-        public void clear()
-        {
-            root = null;
-        }
 
-        public void Add(string vacancy, string FIO)
+        public void Add(string vacancy, string FIO, string unit)
         {
-            Node newItem = new Node(vacancy, FIO);
+            Node newItem = new Node(vacancy, FIO, unit);
             if (root == null)
             {
                 root = newItem;
@@ -234,24 +232,24 @@ namespace avlTree
             }
             return current;
         }
-        public void Delete(string vacancy, string FIO)
+        public void Delete(string vacancy, string FIO, string unit)
         {//and here
-            root = Delete(root, vacancy, FIO);
+            root = Delete(root, vacancy, FIO, unit);
         }
-        private Node Delete(Node current, string vacancy, string FIO)
+        private Node Delete(Node current, string vacancy, string FIO, string unit)
         {
-            Node target = new Node(vacancy, FIO);
+            Node target = new Node(vacancy, FIO, unit);
             Node parent;
             if (current == null)
-            { 
-                return null; 
+            {
+                return null;
             }
             else
             {
                 //left subtree
                 if (target < current)
                 {
-                    current.left = Delete(current.left, vacancy, FIO);
+                    current.left = Delete(current.left, vacancy, FIO, unit);
                     if (balance_factor(current) == -2)//here
                     {
                         if (balance_factor(current.right) <= 0)
@@ -267,7 +265,7 @@ namespace avlTree
                 //right subtree
                 else if (target > current)
                 {
-                    current.right = Delete(current.right, vacancy, FIO);
+                    current.right = Delete(current.right, vacancy, FIO, unit);
                     if (balance_factor(current) == 2)
                     {
                         if (balance_factor(current.left) >= 0)
@@ -293,7 +291,8 @@ namespace avlTree
                         }
                         current.vacancy = parent.vacancy;
                         current.FIO = parent.FIO;
-                        current.right = Delete(current.right, parent.vacancy, parent.FIO);
+                        current.unit = parent.unit;
+                        current.right = Delete(current.right, parent.vacancy, parent.FIO, parent.unit);
                         if (balance_factor(current) == 2)//rebalancing
                         {
                             if (balance_factor(current.left) >= 0)
@@ -311,42 +310,50 @@ namespace avlTree
             }
             return current;
         }
-        public void Find(string vacancy, string FIO)
+
+        public Node Find(string vacancy)
         {
-            if (Find(vacancy, FIO, root).vacancy == vacancy && Find(vacancy, FIO, root).FIO == FIO)//исправить
+            Node search = Find(vacancy, root);
+            if (search.vacancy == vacancy)//исправить
             {
-                Console.WriteLine("{0} was found!", vacancy, FIO);
+                return search;
             }
             else
             {
-                Console.WriteLine("Nothing found!");
+                Node target = new Node(null, null, null);
+                return target;
             }
         }
-        private Node Find(string vacancy, string FIO, Node current)
+        private Node Find(string vacancy, Node current)
         {
-            Node target = new Node(vacancy, FIO);
+            Node target = new Node(vacancy, null, null);
             if (target < current)
             {
-                if (vacancy == current.vacancy && FIO == current.FIO)
+                if (vacancy == current.vacancy)
                 {
                     return current;
                 }
                 else if (current.left != null)
-                    return Find(vacancy, FIO, current.left);
+                    return Find(vacancy, current.left);
                 else return current;
             }
             else
             {
-                if (vacancy == current.vacancy && FIO == current.FIO)
+                if (vacancy == current.vacancy)
                 {
                     return current;
                 }
                 else if (current.right != null)
-                    return Find(vacancy, FIO, current.right);
+                    return Find(vacancy, current.right);
                 else return current;
             }
 
         }
+        public void clear()
+        {
+            root = null;
+        }
+
         public void DisplayTree()
         {
             if (root == null)

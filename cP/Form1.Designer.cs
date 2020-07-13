@@ -96,7 +96,6 @@
             this.listBonusInfo.RowTemplate.Height = 24;
             this.listBonusInfo.Size = new System.Drawing.Size(715, 400);
             this.listBonusInfo.TabIndex = 2;
-            this.listBonusInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listBonusInfo_CellContentClick);
             this.listBonusInfo.Click += new System.EventHandler(this.listBonusInfo_Click);
             // 
             // Column7
@@ -232,6 +231,7 @@
             this.button17.TabIndex = 17;
             this.button17.Text = "Добавление запись о з/п";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button18
             // 
@@ -507,7 +507,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView listBonusInfo;
+        public System.Windows.Forms.DataGridView listBonusInfo;
         private System.Windows.Forms.TabControl tabForm;
         private System.Windows.Forms.TabPage backGroundPayList;
         private System.Windows.Forms.DataGridView listPayInfo;

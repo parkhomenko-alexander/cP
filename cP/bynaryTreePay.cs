@@ -58,7 +58,7 @@ namespace bynTree
                 }
             }
 
-            if (Convert.ToInt32(field1) < 12130)
+            if (Convert.ToInt32(field3) < 0 || Convert.ToInt32(field3) > 100)
             {
                 return 5;
             }

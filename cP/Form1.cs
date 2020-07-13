@@ -60,7 +60,7 @@ namespace cP
                 avlTree.info record = new avlTree.info(parsedString[0], parsedString[1], parsedString[2]);
                 this.listPersonnelInfo.Rows.Add(parsedString);
                 avl.pushBackArray(parsedString[0], parsedString[1], parsedString[2]);
-                avl.Add(parsedString[1], parsedString[0]);
+                avl.Add(parsedString[1], parsedString[0], parsedString[2]);
                 tmpStringFromFile = objRW.reader.ReadLine();
             }
             //while (tmp != null)
@@ -82,7 +82,7 @@ namespace cP
         private void button1_Click(object sender, EventArgs e)
         {
             int[] array = new int[16];
-            string str = "Экономист";
+            string str = "пидарасина";
             int ha1 = payInfoMap.hFunction1(str);
             int ha2 = payInfoMap.hFunction2(str);
             for(int i = 0; i < 16; i++)
@@ -132,7 +132,6 @@ namespace cP
         private void button15_Click(object sender, EventArgs e)
         {
             findPayInfo fpi = new findPayInfo();
-            //fpi.
             fpi.Show();
         }
 
@@ -153,17 +152,18 @@ namespace cP
 
         }
 
-        private void listBonusInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void listBonusInfo_Click(object sender, EventArgs e)
         {
+
+            int index = this.listBonusInfo.CurrentCell.RowIndex;
+            this.listBonusInfo.Rows[index].Selected = false;
 
         }
 
-        private void listBonusInfo_Click(object sender, EventArgs e)
+        private void button17_Click(object sender, EventArgs e)
         {
-            int indexRow = listBonusInfo.SelectedCells[0].RowIndex;
-            //if(index)
-            this.listBonusInfo.Rows[indexRow].Selected = false;
-
+            addInfo ai = new addInfo(this.listBonusInfo);
+            ai.Show();
         }
     }
 }

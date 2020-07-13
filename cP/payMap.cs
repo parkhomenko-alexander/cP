@@ -18,7 +18,7 @@ namespace pMap
         }
 
         //1-длина профессии, 2-[n] == не строчная кирилица, 
-        // 3 - в записи стажа не толко цифры, 4 - в записи коефа  5- стаж > 100 или меньше 0, 6 - кеф > 100
+        // 3 - в записи стажа не толко цифры, 4 - в записи коефа  5- зп меньше мрот, 6 - кеф > 100
         //0 - все нормально
         public int validator(string field1, string field2, string field3)
         {
@@ -51,7 +51,7 @@ namespace pMap
                 }
             }
 
-            if (Convert.ToInt32(field1) < 0 || Convert.ToInt32(field1) > 100)
+            if (Convert.ToInt32(field1) < 12130)
             {
                 return 5;
             }
@@ -101,10 +101,9 @@ namespace pMap
 
         public static bool operator ==(info i1, info i2)
         {
-            int resCompFl1 = i1.field1.CompareTo(i2.field1);
             int resCompFl2 = i1.field2.CompareTo(i2.field2);
 
-            if (resCompFl1 == 0 && resCompFl2 == 0)
+            if (resCompFl2 == 0)
             {
                 return true;
             }
