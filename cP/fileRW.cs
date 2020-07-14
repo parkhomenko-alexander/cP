@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace cP
 {
-    class fileRW
+    public class fileRW
     {   
 
         //проверка наличия файла в директории
@@ -35,6 +35,32 @@ namespace cP
             {
                 return reader = null;
             }
+        }
+
+        public StreamWriter openWriter(string path)
+        {
+            if (checkDirectory(path) == true)
+            {
+                writer = new StreamWriter(path, false);
+                return writer;
+            }
+            else
+            {
+                return writer = null;
+            }
+        }
+
+        public StreamWriter closeWriter(string path)
+        {
+            if (checkDirectory(path) == true)
+            {
+                if (writer != null)
+                {
+                    writer.Close();
+                }
+                return writer = null;
+            }
+            return writer = null;
         }
 
         //парсер строк
@@ -66,5 +92,6 @@ namespace cP
         }
 
         public StreamReader reader;
+        public StreamWriter writer;
     }
 }

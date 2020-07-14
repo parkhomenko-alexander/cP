@@ -215,7 +215,7 @@ namespace pMap
             return i;
         }
 
-        public int getHash(string field2)
+        public int getEmptyHashAddress(string field2)
         {
             int hashAdreeLevel1 = hFunction1(field2);
             if (this.arrayForReport[hashAdreeLevel1].field2 == null || this.arrayForReport[hashAdreeLevel1].field2 == "deleted")
@@ -238,15 +238,50 @@ namespace pMap
                     }
                 }
             }
-
             return 0;
         }
+
+        public int getHashToRecord(string field2)
+        {
+            int hashAdreeLevel1 = hFunction1(field2);
+            if (this.arrayForReport[hashAdreeLevel1].field2 == field2)
+            {
+                return hashAdreeLevel1;
+            }
+            else
+            {
+                int hashAdressLevel2 = this.hFunction2(field2);
+                for (int i = 0; i < arrayForReportSize; i++)
+                {
+                    int insertionAdress = (hashAdreeLevel1 + i * hashAdressLevel2) % arrayForReportSize;
+                    if (this.arrayForReport[insertionAdress].field2 == field2 || this.arrayForReport[insertionAdress].field2 == "deleted")
+                    {
+                        return insertionAdress;
+                    }
+                    if(this.arrayForReport[insertionAdress].field2 == "deleted")
+                    {
+                        continue;
+                    }
+                   if(this.arrayForReport[insertionAdress].field2 == null)
+                   {
+                        return -1;
+                   }
+                }
+            }
+            return -1;
+        }
+
         public void addInArrayForReport(info record)
         {
             int hashAdreeLevel1 = hFunction1(record.field2);
             if (this.arrayForReport[hashAdreeLevel1].field2 == null || this.arrayForReport[hashAdreeLevel1].field2 == "deleted")
             {
                 this.arrayForReport[hashAdreeLevel1] = record;
+                this.recorded++;
+
+                this.recordedCoef = recorded / arrayForReportSize;
+
+                return;
             }
             else
             {
@@ -257,6 +292,10 @@ namespace pMap
                    if (this.arrayForReport[insertionAdress].field2 == null || this.arrayForReport[insertionAdress].field2 == "deleted")
                    {
                         this.arrayForReport[insertionAdress] = record;
+                        this.recorded++;
+
+                        this.recordedCoef = recorded / arrayForReportSize;
+
                         return;
                    }
                    else
@@ -265,9 +304,6 @@ namespace pMap
                    }
                 }
             }
-
-            this.recorded++;
-            this.recordedCoef = recorded / arrayForReportSize * 100;
         }
         public void removeFromHashTable(info record)
         {
@@ -410,18 +446,19 @@ namespace pMap
         }
         public string checkForReHashing()
         {
-            if (this.recorded < 0.75)
+            if (this.recordedCoef < 0.75)
             {
-                return "";
+                return null;
             }
             else
             {   this.arrayForReportSize *= 2;
                 Array.Resize(ref this.arrayForReport, 0);
                 Array.Resize(ref this.arrayForReport, this.arrayForReportSize);
-                foreach (info elem in this.array)
+                for(int i = 0; i < this.arraySize - 1; i++)
                 {
-                    addInArrayForReport(elem);
+                    addInArrayForReport(this.array[i]);
                 }
+
 
                 return "Уровень заполнения хеш-таблицы 75% - произошло рехеширование";
             }

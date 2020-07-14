@@ -48,15 +48,29 @@ namespace cP
             if (result == -1)
             {
                 string[] infoToGrid = new string[4];
-                infoToGrid[0] = mainWindow.payInfoMap.getHash(this.textBox1.Text).ToString();
+                infoToGrid[0] = mainWindow.payInfoMap.getEmptyHashAddress(this.textBox1.Text).ToString();
                 infoToGrid[1] = this.textBox1.Text;
                 infoToGrid[2] = this.textBox2.Text;
                 infoToGrid[3] = this.textBox3.Text;
                 dgw.Rows.Add(infoToGrid);
-                mainWindow.payInfoMap.pushBackArray(this.textBox2.Text, this.textBox1.Text, this.textBox2.Text);
+                mainWindow.payInfoMap.pushBackArray(this.textBox1.Text, this.textBox2.Text, this.textBox3.Text);
                 mainWindow.payInfoMap.addInArrayForReport(record);
 
-                this.textBox4.Text = "Запись успешно добавлена в справочнике";
+                this.textBox4.Text = "Запись успешно добавлена в справочник";
+                string msg = mainWindow.payInfoMap.checkForReHashing();
+                if  (msg != null)
+                {
+                    dgw.Rows.Clear();
+                   for (int i = 0; i < mainWindow.payInfoMap.arraySize - 1; i++) 
+                    {
+                        infoToGrid[0] = mainWindow.payInfoMap.getHashToRecord(mainWindow.payInfoMap.array[i].field2).ToString();
+                        infoToGrid[1] = mainWindow.payInfoMap.array[i].field2;
+                        infoToGrid[2] = mainWindow.payInfoMap.array[i].field1;
+                        infoToGrid[3] = mainWindow.payInfoMap.array[i].field3;
+                        dgw.Rows.Add(infoToGrid);
+                    }
+                    MessageBox.Show("Хеш-таблица заполнена , размер таблицы увеличен", "Рехеширование", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
             }
             else

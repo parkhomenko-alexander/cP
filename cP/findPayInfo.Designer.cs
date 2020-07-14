@@ -231,7 +231,7 @@
             this.MaximizeBox = false;
             this.Name = "findPayInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Сведения по з/п должности ";
+            this.Text = "Сведения по з/п";
             this.ResumeLayout(false);
             this.PerformLayout();
 

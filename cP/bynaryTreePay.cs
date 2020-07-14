@@ -11,7 +11,13 @@ using System.Globalization;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 using System.Threading;
+
 using cP;
+using bynTree;
+using pMap;
+using avlTree;
+using HashTable;
+using repClass;
 
 namespace bynTree
 {
@@ -603,13 +609,17 @@ namespace bynTree
 
             return current;
         }
-       
-        //public node symmetricTraversal(node root)
-        //{
-        //    findPayInfo fpi = new findPayInfo();
-        //    fpi.Show();
-        //    return ;
-        //} 
+
+        public void getReport(node current, reportClass rC, payMap pM)
+        {
+           if (current != null)
+           {
+                getReport(current.left, rC, pM);
+                Tuple<int, pMap.info, int, string> finded = pM.findInHashTable(current.field2);
+                rC.pushArray(current.field2, finded.Item2.field1, current.field1, current.field3);
+                getReport(current.right, rC, pM);
+           }
+        }
 
         public node root;
         public info[] array;
