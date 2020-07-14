@@ -72,17 +72,26 @@ namespace repClass
             else
             {
                 int i = 0;
-                while (record <= array[i])
+                while (i != arraySize && record >= array[i])
                 {
                     i++;
                 }
-                arraySize++;
+                if (i == arraySize)
+                {
+                    array[arraySize - 1] = record;
+                    arraySize++;
+                    Array.Resize(ref array, arraySize);
+                }
+                else
+                { arraySize++;
                 Array.Resize(ref array, arraySize);
                 for(int j = arraySize - 2; j > i; j--)
                 {
                     array[j] = array[j - 1];
                 }
                 array[i] = record;
+                return "Запись успешно добавлена";
+                }
                 return "Запись успешно добавлена";
             }
         }

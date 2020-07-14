@@ -50,15 +50,12 @@ namespace cP
             }
         }
 
-        public StreamWriter closeWriter(string path)
+        public StreamWriter closeWriter()
         {
-            if (checkDirectory(path) == true)
+
+            if (writer != null)
             {
-                if (writer != null)
-                {
-                    writer.Close();
-                }
-                return writer = null;
+                writer.Close();
             }
             return writer = null;
         }

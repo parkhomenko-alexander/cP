@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -7,6 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using cP;
+using bynTree;
+using pMap;
+using avlTree;
+using HashTable;
+using repClass;
 
 namespace HashTable
 {
@@ -24,43 +29,81 @@ namespace HashTable
         //4 - Неверно записано ФИО
         public int validator(string field1, string field2, string field3)
         {
-            foreach (char letter in field2)
+            if ((1071 < field2[0] && field2[0] < 1104 || field2[0] == 1105) && (1071 < field3[0] && field3[0] < 1104 || field3[0] == 1105))
             {
-                if ((1072 > letter || letter > 1105 || letter == 1104) && (1 > field2.Length || field2.Length > 30))
+                foreach (char letter in field2)
                 {
-                    return 1;
+                    if (1072 > letter || letter > 1105 || letter == 1104 || 1 > field2.Length || field2.Length > 30)
+                    {
+                        return 1;
+                    }
+                }
+
+                foreach (char letter in field3)
+                {
+                    if (1072 > letter || letter > 1105 || letter == 1104 || 1 > field2.Length || field2.Length > 30)
+                    {
+                        return 2;
+                    }
+                }
+            }
+            else if ((48 > field2[0] || field2[0] > 57) || (48 > field3[0] || field3[0] > 57))
+                return 9;
+            else
+            {
+                foreach (char letter in field2)
+                {
+                    if (48 > letter || letter > 57)
+                    {
+                        return 5;
+                    }
+                }
+
+                foreach (char letter in field3)
+                {
+                    if (48 > letter || letter > 57)
+                    {
+                        return 6;
+                    }
+                }
+
+                if (Convert.ToInt32(field2) < 0 || Convert.ToInt32(field2) > 100)
+                {
+                    return 7;
+                }
+
+                if (Convert.ToInt32(field3) < 0 || Convert.ToInt32(field3) > 100)
+                {
+                    return 8;
                 }
             }
 
-            foreach (char letter in field3)
-            {
-                if ((1072 > letter || letter > 1105 || letter == 1104) && (1 > field3.Length || field3.Length > 30))
-                {
-                    return 2;
-                }
-            }
-
+            if (5 > field1.Length || field1.Length > 100)
+                return 4;
             int j = 0, k = 0;
             for (int i = 0; i < field1.Length; i++)
             {
-                if (j == 0 && (1040 > field1[i] || field1[i] > 1071 || field1[i] != 1025))
+                if (j == 0 && field1[i] != 1025 && (1040 > field1[i] || field1[i] > 1071))
                 {
                     return 3;
                 }
-                else j = 1;
 
-                if (j == 1 && (1072 > field1[i] || field1[i] > 1105 || field1[i] == 1104))
+                if (j == 1 && field1[i] != 32 && (1072 > field1[i] || field1[i] > 1105 || field1[i] == 1104))
                 {
                     return 4;
                 }
-                else if (field1[i] == 20)
+                else if (field1[i] == 32)
                 {
                     j = 0;
                     k++;
                     if (k > 2)
                         return 4;
                 }
+                else if (j == 0)
+                    j = 1;
             }
+            if (k < 2)
+                return 4;
             return 0;
         }
         public string errorHandler(int number)
@@ -82,6 +125,26 @@ namespace HashTable
                 case 4:
                     {
                         return "Неверно записано ФИО";
+                    }
+                case 5:
+                    {
+                        return "В записи стажа использованы не только цифры";
+                    }
+                case 6:
+                    {
+                        return "В записи коеффициента использованы не только цифры";
+                    }
+                case 7:
+                    {
+                        return "Некорректное значение стажа";
+                    }
+                case 8:
+                    {
+                        return "Некорректное значение коеффициента";
+                    }
+                case 9:
+                    {
+                        return "Некорректное данные";
                     }
                 default:
                     {
@@ -148,13 +211,10 @@ namespace HashTable
         public void Add(info record)
         {
             Node node = new Node(record.field1, record.field2, record.field3);
-
-            if (head.Data1 == null && head.Data2 == null && head.Data3 == null)
-                head = node;
-            else
-                tail.Next = node;
-            tail = node;
-
+            node.Next = head;
+            head = node;
+            if (count == 0)
+                tail = head;
             count++;
         }
         // удаление элемента
@@ -358,6 +418,34 @@ namespace HashTable
             result = (result * 0.6180339887) % 1;
             result = result * size;
             return Convert.ToInt32(result);
+        }
+        public void getReport(reportClass rC, hashTable eM)
+        {
+            for (int i = 0; i < this.arraySize - 1; i++)
+            {
+                Tuple<int, string, string, string, int, string> finded = eM.findInHashTable(this.array[i].field1);
+                rC.pushArray(this.array[i].field1, this.array[i].field2, finded.Item3, null);
+            }
+        }
+
+        public void getReport(reportClass rC, payMap pM)
+        {
+            for (int i = 0; i < this.arraySize - 1; i++)
+            {
+                Tuple<int, pMap.info, int, string> finded = pM.findInHashTable(this.array[i].field2);
+                rC.pushArray(this.array[i].field1, finded.Item2.field1, null, null);
+            }
+        }
+
+        public void getReport(reportClass rC, hashTable eM, payMap pM)
+        {
+            for (int i = 0; i < this.arraySize - 1; i++)
+            {
+                Tuple<int, string, string, string, int, string> findedFromEmployee = eM.findInHashTable(this.array[i].field1);
+                Tuple<int, pMap.info, int, string> findedFromPay = pM.findInHashTable(this.array[i].field2);
+                rC.pushArray(array[i].field1, array[i].field3,
+                            findedFromEmployee.Item3, findedFromPay.Item2.field1);
+            }
         }
 
         public info[] array;

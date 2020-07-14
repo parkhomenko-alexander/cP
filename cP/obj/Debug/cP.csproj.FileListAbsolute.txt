@@ -10,4 +10,7 @@ C:\Users\al\source\repos\cP\cP\obj\Debug\cP.pdb
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.mainWindow.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.findPayInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addInfo.resources
-C:\Users\al\source\repos\cP\cP\obj\Debug\cP.report1.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.reportPayBonus.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.reportFioPostExp.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.reportFioPay.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.reportFioUnitExpPay.resources

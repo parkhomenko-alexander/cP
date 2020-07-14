@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using cP;
+using bynTree;
+using pMap;
+using avlTree;
+using HashTable;
+using repClass;
+
 namespace avlTree
 {
     struct info
@@ -354,23 +361,14 @@ namespace avlTree
             root = null;
         }
 
-        public void DisplayTree()
-        {
-            if (root == null)
-            {
-                Console.WriteLine("Tree is empty");
-                return;
-            }
-            InOrderDisplayTree(root);
-            Console.WriteLine();
-        }
-        private void InOrderDisplayTree(Node current)
+        public void InOrderDisplayTree(Node current, reportClass rC, payMap pM)
         {
             if (current != null)
             {
-                InOrderDisplayTree(current.left);
-                Console.Write("({0}) ", current.FIO);
-                InOrderDisplayTree(current.right);
+                InOrderDisplayTree(current.left, rC, pM);
+                Tuple<int, pMap.info, int, string> finded = pM.findInHashTable(current.vacancy);
+                rC.pushArray(finded.Item2.field2, finded.Item2.field1, current.unit, null);
+                InOrderDisplayTree(current.right, rC, pM);
             }
         }
         private int max(int l, int r)
