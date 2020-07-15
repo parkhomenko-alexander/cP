@@ -24,8 +24,8 @@ namespace cP
         public static bynaryTree bynaryTreeSourceData = new bynaryTree();
         fileRW objRW = new fileRW();
         public static payMap payInfoMap = new payMap();
-        public static hashTable personnelMap = new hashTable();
         public static hashTable employeeMap = new hashTable();
+        public static hashTable personnelMap = new hashTable();
         string sourceFileName;
         public mainWindow()
         {
@@ -424,6 +424,19 @@ namespace cP
             addBonusInfo ai = new addBonusInfo(this.listPayInfo);
             ai.Show();
         }
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            addPersonnelInfo ai = new addPersonnelInfo(this.listPersonnelInfo);
+            ai.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            addEmployeeInfo ai = new addEmployeeInfo(this.listEmployeeInfo);
+            ai.Show();
+        }
         //
 
         //Отчеты
@@ -527,6 +540,22 @@ namespace cP
                 payInfoMap.removeFromHashTable(record);
                 listBonusInfo.Rows.RemoveAt(indexRow);
 
+                string msg = mainWindow.payInfoMap.checkForDownReHashing();
+                if (msg != null)
+                {
+                    listBonusInfo.Rows.Clear();
+                    string[] infoToGrid = new string[4];
+                    for (int i = 0; i < mainWindow.payInfoMap.arraySize - 1; i++)
+                    {   
+                        infoToGrid[0] = mainWindow.payInfoMap.getHashToRecord(mainWindow.payInfoMap.array[i].field2).ToString();
+                        infoToGrid[1] = mainWindow.payInfoMap.array[i].field2;
+                        infoToGrid[2] = mainWindow.payInfoMap.array[i].field1;
+                        infoToGrid[3] = mainWindow.payInfoMap.array[i].field3;
+                        listBonusInfo.Rows.Add(infoToGrid);
+                    }
+                    MessageBox.Show("Уровень заполнения хеш-таблицы менее 25% - произошло рехеширование\nРазмер уменьшен", "Рехеширование", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
             }
             else
             {
@@ -605,6 +634,11 @@ namespace cP
             {
                 return;
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
         }
 
         //

@@ -55,11 +55,23 @@
     <Compile Include="addBonusInfo.Designer.cs">
       <DependentUpon>addBonusInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="addEmployeeInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addEmployeeInfo.Designer.cs">
+      <DependentUpon>addEmployeeInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="addPayInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="addPayInfo.Designer.cs">
       <DependentUpon>addPayInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="addPersonnelInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addPersonnelInfo.Designer.cs">
+      <DependentUpon>addPersonnelInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="avlTree.cs" />
     <Compile Include="bynaryTreePay.cs" />
@@ -126,8 +138,14 @@
     <EmbeddedResource Include="addBonusInfo.resx">
       <DependentUpon>addBonusInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="addEmployeeInfo.resx">
+      <DependentUpon>addEmployeeInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addPayInfo.resx">
       <DependentUpon>addPayInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="addPersonnelInfo.resx">
+      <DependentUpon>addPersonnelInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="findBonusInfo.resx">
       <DependentUpon>findBonusInfo.cs</DependentUpon>
@@ -165,6 +183,7 @@
     <EmbeddedResource Include="reportPayBonus.resx">
       <DependentUpon>reportPayBonus.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -64,7 +64,7 @@ namespace bynTree
                 }
             }
 
-            if (Convert.ToInt32(field3) < 0 || Convert.ToInt32(field3) > 100)
+            if (Convert.ToInt32(field1) < 0 || Convert.ToInt32(field1) > 100)
             {
                 return 5;
             }
@@ -103,7 +103,7 @@ namespace bynTree
                     }
                 case 6:
                     {
-                        return "Некорректное значение коеффициента";
+                        return "Некорректное значение процента";
                     }
                 default:
                     {

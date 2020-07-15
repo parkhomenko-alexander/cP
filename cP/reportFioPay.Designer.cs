@@ -92,7 +92,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "reportFioPay";
-            this.Text = "Отчет и заработной плате сотрудников";
+            this.Text = "Отчет о заработной плате сотрудников";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

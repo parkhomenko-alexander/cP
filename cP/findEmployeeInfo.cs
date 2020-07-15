@@ -53,7 +53,7 @@ namespace cP
                 this.textBox3.Text = null;
                 this.textBox4.Text = null;
                 this.textBox5.Text = null;
-                this.textBox6.Text = findedInfo.Item6 + " (или справочник не содержит записей)";
+                this.textBox6.Text = findedInfo.Item6;
             }
         }
 

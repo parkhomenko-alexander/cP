@@ -69,6 +69,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.listBonusInfo)).BeginInit();
             this.tabForm.SuspendLayout();
             this.backGroundPayList.SuspendLayout();
@@ -87,7 +88,7 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.listBonusInfo.Location = new System.Drawing.Point(747, 0);
+            this.listBonusInfo.Location = new System.Drawing.Point(739, 2);
             this.listBonusInfo.Name = "listBonusInfo";
             this.listBonusInfo.RowHeadersWidth = 50;
             this.listBonusInfo.RowTemplate.Height = 24;
@@ -134,6 +135,7 @@
             // 
             // backGroundPayList
             // 
+            this.backGroundPayList.Controls.Add(this.button1);
             this.backGroundPayList.Controls.Add(this.button10);
             this.backGroundPayList.Controls.Add(this.button11);
             this.backGroundPayList.Controls.Add(this.button12);
@@ -205,7 +207,7 @@
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(1026, 406);
+            this.button15.Location = new System.Drawing.Point(1242, 406);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(212, 55);
             this.button15.TabIndex = 15;
@@ -225,7 +227,7 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(1244, 406);
+            this.button17.Location = new System.Drawing.Point(1024, 406);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(212, 55);
             this.button17.TabIndex = 17;
@@ -346,6 +348,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "Добавление записи в Кадровый список";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button7
             // 
@@ -375,6 +378,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Добавление записи в список Сотрудников";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // initPersonnelInfo
             // 
@@ -436,7 +440,7 @@
             this.Column4,
             this.Column5,
             this.Column6});
-            this.listEmployeeInfo.Location = new System.Drawing.Point(747, 0);
+            this.listEmployeeInfo.Location = new System.Drawing.Point(739, 2);
             this.listEmployeeInfo.Name = "listEmployeeInfo";
             this.listEmployeeInfo.RowHeadersWidth = 50;
             this.listEmployeeInfo.RowTemplate.Height = 24;
@@ -466,6 +470,16 @@
             this.Column6.HeaderText = "коэффициент";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(682, 478);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(142, 44);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // mainWindow
             // 
@@ -531,6 +545,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Button button1;
     }
 }
 

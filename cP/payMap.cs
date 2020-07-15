@@ -160,7 +160,6 @@ namespace pMap
                 return "Запись успешно добавлена";
             }
         }
-
         public string eraseFromArray(string field2, string field1, string field3)
         {
             info record = new info(field2, field1, field3);
@@ -193,8 +192,6 @@ namespace pMap
 
             return;
         }
-
-        //-1 - dont find
         public int findInArray(info record)
         {
             int i = 0;
@@ -312,6 +309,8 @@ namespace pMap
                 this.arrayForReport[hashAdreeLevel1].field1 = "deleted";
                 this.arrayForReport[hashAdreeLevel1].field2 = "deleted";
                 this.arrayForReport[hashAdreeLevel1].field3 = "deleted";
+                this.recorded--;
+                this.recordedCoef = this.recorded / this.arrayForReportSize;
             }
             else
             {
@@ -324,6 +323,8 @@ namespace pMap
                         this.arrayForReport[insertionAdress].field1 = "deleted";
                         this.arrayForReport[insertionAdress].field2 = "deleted";
                         this.arrayForReport[insertionAdress].field3 = "deleted";
+                        this.recorded--;
+                        this.recordedCoef = this.recorded / this.arrayForReportSize;
                         return;
                     }
                     else
@@ -452,7 +453,7 @@ namespace pMap
                 return Tuple.Create(returnedRecord.Item1, returnedRecord.Item2, "Запись найдена за  " + returnedRecord.Item3.ToString() + " сравнений");
             }
         }
-        public string checkForReHashing()
+        public string checkForUpReHashing()
         {
             if (this.recordedCoef < 0.75)
             {
@@ -469,6 +470,25 @@ namespace pMap
 
 
                 return "Уровень заполнения хеш-таблицы 75% - произошло рехеширование";
+            }
+        }
+
+        public string checkForDownReHashing()
+        {
+            if (this.recordedCoef < 0.25)
+            {
+                return null;
+            }
+            else
+            {
+                this.arrayForReportSize /= 2;
+                Array.Resize(ref this.arrayForReport, 0);
+                Array.Resize(ref this.arrayForReport, this.arrayForReportSize);
+                for (int i = 0; i < this.arraySize - 1; i++)
+                {
+                    addInArrayForReport(this.array[i]);
+                }
+                return "Уровень заполнения хеш-таблицы менее 25% - произошло рехеширование";
             }
         }
 

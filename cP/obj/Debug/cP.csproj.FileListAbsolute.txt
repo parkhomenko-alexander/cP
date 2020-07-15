@@ -18,3 +18,5 @@ C:\Users\al\source\repos\cP\cP\obj\Debug\cP.findPersonnelInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.findBonusInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addBonusInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addPayInfo.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addPersonnelInfo.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addEmployeeInfo.resources

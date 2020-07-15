@@ -404,13 +404,13 @@ namespace HashTable
         {
             int hashAdress = hFunction(field1);
             Tuple<Node, int> findRecord = this.arrayRoot[hashAdress].Contains(field1);
-            if (findRecord.Item1.Data1 == null)
-            {
-                return Tuple.Create(hashAdress, findRecord.Item1.Data1, findRecord.Item1.Data2, findRecord.Item1.Data3, -1, "Запись не содержится в справочнике");//Список пуст
-            }
-            else if (findRecord.Item2 == 0)
+            if (this.arraySize == 1)
             {
                 return Tuple.Create(hashAdress, findRecord.Item1.Data1, findRecord.Item1.Data2, findRecord.Item1.Data3, -2, "Справочник не содержит записей");//Запись не найдена
+            }
+            else if (findRecord.Item1.Data1 == null)
+            {
+                return Tuple.Create(hashAdress, findRecord.Item1.Data1, findRecord.Item1.Data2, findRecord.Item1.Data3, -1, "Запись не содержится в справочнике");//Список пуст
             }
             else
             {

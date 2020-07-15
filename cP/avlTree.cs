@@ -13,20 +13,20 @@ using repClass;
 
 namespace avlTree
 {
-    public class Node
+    public class Nodetree
     {
         public string vacancy;
         public string FIO;
         public string unit;
-        public Node left;
-        public Node right;
-        public Node(string vacancy, string FIO, string unit)
+        public Nodetree left;
+        public Nodetree right;
+        public Nodetree(string vacancy, string FIO, string unit)
         {
             this.vacancy = vacancy;
             this.FIO = FIO;
             this.unit = unit;
         }
-        public static bool operator >(Node c1, Node c2)
+        public static bool operator >(Nodetree c1, Nodetree c2)
         {
             if (String.Compare(c1.vacancy, c2.vacancy) > 0)
                 return true;
@@ -38,7 +38,7 @@ namespace avlTree
                 return false;
             else return false;
         }
-        public static bool operator <(Node c1, Node c2)
+        public static bool operator <(Nodetree c1, Nodetree c2)
         {
             if (String.Compare(c1.vacancy, c2.vacancy) > 0)
                 return false;
@@ -54,11 +54,11 @@ namespace avlTree
 
     public class AVL
     {
-        public Node root;
+        public Nodetree root;
 
         public void Add(string vacancy, string FIO, string unit)
         {
-            Node newItem = new Node(vacancy, FIO, unit);
+            Nodetree newItem = new Nodetree(vacancy, FIO, unit);
             if (root == null)
             {
                 root = newItem;
@@ -68,7 +68,7 @@ namespace avlTree
                 root = RecursiveInsert(root, newItem);
             }
         }
-        private Node RecursiveInsert(Node current, Node n)
+        private Nodetree RecursiveInsert(Nodetree current, Nodetree n)
         {
             if (current == null)
             {
@@ -87,7 +87,7 @@ namespace avlTree
             }
             return current;
         }
-        private Node balance_tree(Node current)
+        private Nodetree balance_tree(Nodetree current)
         {
             int b_factor = balance_factor(current);
             if (b_factor > 1)
@@ -118,10 +118,10 @@ namespace avlTree
         {//and here
             root = Delete(root, vacancy, FIO, unit);
         }
-        private Node Delete(Node current, string vacancy, string FIO, string unit)
+        private Nodetree Delete(Nodetree current, string vacancy, string FIO, string unit)
         {
-            Node target = new Node(vacancy, FIO, unit);
-            Node parent;
+            Nodetree target = new Nodetree(vacancy, FIO, unit);
+            Nodetree parent;
             if (current == null)
             {
                 return null;
@@ -193,22 +193,22 @@ namespace avlTree
             return current;
         }
 
-        public Node Find(string vacancy)
+        public Nodetree Find(string vacancy)
         {
-            Node search = Find(vacancy, root);
+            Nodetree search = Find(vacancy, root);
             if (search.vacancy == vacancy)//исправить
             {
                 return search;
             }
             else
             {
-                Node target = new Node(null, null, null);
+                Nodetree target = new Nodetree(null, null, null);
                 return target;
             }
         }
-        private Node Find(string vacancy, Node current)
+        private Nodetree Find(string vacancy, Nodetree current)
         {
-            Node target = new Node(vacancy, null, null);
+            Nodetree target = new Nodetree(vacancy, null, null);
             if (target < current)
             {
                 if (vacancy == current.vacancy)
@@ -236,7 +236,7 @@ namespace avlTree
             root = null;
         }
 
-        public void getReport(Node current, reportClass rC, payMap pM)
+        public void getReport(Nodetree current, reportClass rC, payMap pM)
         {
             if (current != null)
             {
@@ -250,7 +250,7 @@ namespace avlTree
         {
             return l > r ? l : r;
         }
-        private int getHeight(Node current)
+        private int getHeight(Nodetree current)
         {
             int height = 0;
             if (current != null)
@@ -262,36 +262,36 @@ namespace avlTree
             }
             return height;
         }
-        private int balance_factor(Node current)
+        private int balance_factor(Nodetree current)
         {
             int l = getHeight(current.left);
             int r = getHeight(current.right);
             int b_factor = l - r;
             return b_factor;
         }
-        private Node RotateRR(Node parent)
+        private Nodetree RotateRR(Nodetree parent)
         {
-            Node pivot = parent.right;
+            Nodetree pivot = parent.right;
             parent.right = pivot.left;
             pivot.left = parent;
             return pivot;
         }
-        private Node RotateLL(Node parent)
+        private Nodetree RotateLL(Nodetree parent)
         {
-            Node pivot = parent.left;
+            Nodetree pivot = parent.left;
             parent.left = pivot.right;
             pivot.right = parent;
             return pivot;
         }
-        private Node RotateLR(Node parent)
+        private Nodetree RotateLR(Nodetree parent)
         {
-            Node pivot = parent.left;
+            Nodetree pivot = parent.left;
             parent.left = RotateRR(pivot);
             return RotateLL(parent);
         }
-        private Node RotateRL(Node parent)
+        private Nodetree RotateRL(Nodetree parent)
         {
-            Node pivot = parent.right;
+            Nodetree pivot = parent.right;
             parent.right = RotateLL(pivot);
             return RotateRR(parent);
         }
