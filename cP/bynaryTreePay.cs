@@ -299,10 +299,9 @@ namespace bynTree
             else
             {   
                 int refRecordToRemove = this.findInArray(record);
-                int i = 0; 
                 if (refRecordToRemove != -1)
                 {
-                    this.swapRecords(ref this.array, i);
+                    this.swapRecords(ref this.array, refRecordToRemove);
                     arraySize--;
                     Array.Resize(ref this.array, arraySize);
                     return "Запись успешно удалена";
@@ -432,7 +431,7 @@ namespace bynTree
                 if (current == null)
                 {
                     node finedNode = new node(null, null, null);
-                    return Tuple.Create(finedNode, 0);
+                    return Tuple.Create(finedNode, -2);
                 }
                 else
                 {
@@ -489,6 +488,11 @@ namespace bynTree
         public void removeLeaf(node leaf)
         {
             node current = this.findNode(leaf).Item1.parent;
+            if(current == null)
+            {
+                this.root = null;
+                return;
+            }
             if (current.left == leaf)
             {
                 current.left = null;

@@ -8,25 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using bynTree;
-using pMap;
-using avlTree;
-using cP;
-
 namespace cP
 {
-    public partial class findPayInfo : Form
-    {   
-        public findPayInfo()
+    public partial class findPersonnelInfo : Form
+    {
+        public findPersonnelInfo()
         {
             InitializeComponent();
-        }
-
-        //чтобы можно было образаться к текст боксу
-        public string inputText
-        {
-            get { return infoBox.Text; }
-            set { infoBox.Text = value; }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -42,16 +30,16 @@ namespace cP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string post = infoBox.Text;
-            Tuple<int, pMap.info, int, string> result = mainWindow.payInfoMap.findInHashTable(post);
-            if (result.Item1 != -1 && result.Item1 != -2)
+            string FIO = infoBox.Text;
+            Tuple<int, string, string, string, int, string> findedInfo = mainWindow.personnelMap.findInHashTable(FIO);
+            if (findedInfo.Item5 != -1 && findedInfo.Item5 != -2)
             {
-                this.textBox1.Text = result.Item1.ToString();
-                this.textBox2.Text = result.Item2.field2;
-                this.textBox3.Text = result.Item2.field1;
-                this.textBox4.Text = result.Item2.field3.ToString();
-                this.textBox5.Text = result.Item3.ToString();
-                this.textBox6.Text = result.Item4.ToString();
+                this.textBox1.Text = findedInfo.Item1.ToString();
+                this.textBox2.Text = findedInfo.Item2;
+                this.textBox3.Text = findedInfo.Item3;
+                this.textBox4.Text = findedInfo.Item4;
+                this.textBox5.Text = findedInfo.Item5.ToString();
+                this.textBox6.Text = findedInfo.Item6;
             }
             else
             {
@@ -60,7 +48,7 @@ namespace cP
                 this.textBox3.Text = null;
                 this.textBox4.Text = null;
                 this.textBox5.Text = null;
-                this.textBox6.Text = result.Item4;
+                this.textBox6.Text = findedInfo.Item6 + " (или справочник не сожержит записей)";
             }
         }
     }

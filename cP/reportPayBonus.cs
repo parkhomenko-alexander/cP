@@ -37,7 +37,7 @@ namespace cP
             if (sfd1.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter flWR = new System.IO.StreamWriter(sfd1.FileName);
-                flWR.WriteLine("Отчет о зп, стаже и премиях по подолжностям" + "\n" + "должность \\ зп \\ стаж \\ коеффициент\n");
+                flWR.WriteLine("Отчет о зп, стаже и премиях сотрудников" + "\n" + "должность \\ зп \\ стаж \\ процент\n");
                 for (int i = 0; i < rC.arraySize - 1; i++)
                 {
                     string strForWrite = rC.array[i].field1 + " \\ ";

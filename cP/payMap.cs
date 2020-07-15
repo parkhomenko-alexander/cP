@@ -172,10 +172,9 @@ namespace pMap
             else
             {
                 int refRecordToRemove = this.findInArray(record);
-                int i = 0;
                 if (refRecordToRemove != -1)
                 {
-                    this.swapRecords(ref this.array, i);
+                    this.swapRecords(ref this.array, refRecordToRemove);
                     arraySize--;
                     Array.Resize(ref this.array, arraySize);
                     return "Запись успешно удалена";
@@ -225,7 +224,7 @@ namespace pMap
             else
             {
                 int hashAdressLevel2 = this.hFunction2(field2);
-                for (int i = 0; i < arrayForReportSize; i++)
+                for (int i = 1; i < arrayForReportSize; i++)
                 {
                     int insertionAdress = (hashAdreeLevel1 + i * hashAdressLevel2) % arrayForReportSize;
                     if (this.arrayForReport[insertionAdress].field2 == null || this.arrayForReport[insertionAdress].field2 == "deleted")
@@ -251,10 +250,10 @@ namespace pMap
             else
             {
                 int hashAdressLevel2 = this.hFunction2(field2);
-                for (int i = 0; i < arrayForReportSize; i++)
+                for (int i = 1; i < arrayForReportSize; i++)
                 {
                     int insertionAdress = (hashAdreeLevel1 + i * hashAdressLevel2) % arrayForReportSize;
-                    if (this.arrayForReport[insertionAdress].field2 == field2 || this.arrayForReport[insertionAdress].field2 == "deleted")
+                    if (this.arrayForReport[insertionAdress].field2 == field2)
                     {
                         return insertionAdress;
                     }
@@ -333,6 +332,15 @@ namespace pMap
                     }
                 }
             }
+        }
+
+        public void initHashTableFromArray()
+        {
+            for (int i = 0; i < arraySize - 1; i++)
+            {
+                this.addInArrayForReport(array[i]);
+            }
+
         }
 
         /// <summary>

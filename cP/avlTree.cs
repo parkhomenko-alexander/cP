@@ -13,125 +13,7 @@ using repClass;
 
 namespace avlTree
 {
-    struct info
-    {
-        public info(string field1, string field2, string field3)
-        {
-            this.field1 = field1;
-            this.field2 = field2;
-            this.field3 = field3;
-        }
-
-        //1 - Неверно записана должность, 2 - Неверно записано подразделение, 3 - ФИО должно начинаться с заглавной буквы
-        //4 - Неверно записано ФИО
-        public int validator(string field1, string field2, string field3)
-        {
-            foreach (char letter in field2)
-            {
-                if ((1072 > letter || letter > 1105 || letter == 1104) && (1 > field2.Length || field2.Length > 30))
-                {
-                    return 1;
-                }
-            }
-
-            foreach (char letter in field3)
-            {
-                if ((1072 > letter || letter > 1105 || letter == 1104) && (1 > field3.Length || field3.Length > 30))
-                {
-                    return 2;
-                }
-            }
-
-            int j = 0, k = 0;
-            for (int i = 0; i < field1.Length; i++)
-            {
-                if (j == 0 && (1040 > field1[i] || field1[i] > 1071 || field1[i] != 1025))
-                {
-                    return 3;
-                }
-                else j = 1;
-
-                if (j == 1 && (1072 > field1[i] || field1[i] > 1105 || field1[i] == 1104) && (5 > field1.Length || field1.Length > 152))
-                {
-                    return 4;
-                }
-                else if (field1[i] == 20)
-                {
-                    j = 0;
-                    k++;
-                    if (k > 2)
-                        return 4;
-                }
-                if (k < 2)
-                    return 4;
-            }
-            return 0;
-        }
-        public string errorHandler(int number)
-        {
-            switch (number)
-            {
-                case 1:
-                    {
-                        return "Неверно записана должность";
-                    }
-                case 2:
-                    {
-                        return "Неверно записано подразделение";
-                    }
-                case 3:
-                    {
-                        return "ФИО должно начинаться с заглавной буквы";
-                    }
-                case 4:
-                    {
-                        return "Неверно записано ФИО";
-                    }
-                default:
-                    {
-                        return "Запись успешно добалена";
-                    }
-            }
-        }
-
-        public static bool operator ==(info i1, info i2)
-        {
-            int resCompFl1 = i1.field1.CompareTo(i2.field1);
-            int resCompFl2 = i1.field2.CompareTo(i2.field2);
-            int resCompFl3 = i1.field3.CompareTo(i2.field3);
-
-            if (resCompFl1 == 0 && resCompFl2 == 0 && resCompFl3 == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public static bool operator !=(info i1, info i2)
-        {
-            int resCompFl1 = i1.field1.CompareTo(i2.field1);
-            int resCompFl2 = i1.field2.CompareTo(i2.field2);
-            int resCompFl3 = i1.field3.CompareTo(i2.field3);
-
-            if (resCompFl1 != 0 || resCompFl2 != 0 || resCompFl3 != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public string field1 { get; set; }
-        public string field2 { get; set; }
-        public string field3 { get; set; }
-
-    }
-
-    class Node
+    public class Node
     {
         public string vacancy;
         public string FIO;
@@ -170,16 +52,9 @@ namespace avlTree
         }
     }
 
-    class AVL
+    public class AVL
     {
-        Node root;
-        public info[] array;
-        public int arraySize { get; set; }
-        public AVL()
-        {
-            arraySize = 1;
-            array = new info[arraySize];
-        }
+        public Node root;
 
         public void Add(string vacancy, string FIO, string unit)
         {
@@ -361,14 +236,14 @@ namespace avlTree
             root = null;
         }
 
-        public void InOrderDisplayTree(Node current, reportClass rC, payMap pM)
+        public void getReport(Node current, reportClass rC, payMap pM)
         {
             if (current != null)
             {
-                InOrderDisplayTree(current.left, rC, pM);
+                getReport(current.left, rC, pM);
                 Tuple<int, pMap.info, int, string> finded = pM.findInHashTable(current.vacancy);
-                rC.pushArray(finded.Item2.field2, finded.Item2.field1, current.unit, null);
-                InOrderDisplayTree(current.right, rC, pM);
+                rC.pushArray(current.FIO, finded.Item2.field1, null, null);
+                getReport(current.right, rC, pM);
             }
         }
         private int max(int l, int r)
@@ -421,77 +296,5 @@ namespace avlTree
             return RotateRR(parent);
         }
 
-        public string pushBackArray(string field1, string field2, string field3)
-        {
-            info record = new info(field2, field1, field3);
-
-            if (arraySize == 1)
-            {
-                array[arraySize - 1] = record;
-                arraySize++;
-                Array.Resize(ref array, arraySize);
-                return "Запись успешно добавлена";
-            }
-            else
-            {
-                array[arraySize - 1] = record;
-                arraySize++;
-                Array.Resize(ref array, arraySize);
-                return "Запись успешно добавлена";
-            }
-        }
-        public string eraseFromArray(string field2, string field1, string field3)
-        {
-            info record = new info(field2, field1, field3);
-
-            if (arraySize == 0)
-            {
-                return "Удаление невозможно справочник пуст";
-            }
-            else
-            {
-                int refRecordToRemove = this.findInArray(record);
-                int i = 0;
-                if (refRecordToRemove != -1)
-                {
-                    this.swapRecords(ref this.array, i);
-                    arraySize--;
-                    Array.Resize(ref this.array, arraySize);
-                    return "Запись успешно удалена";
-                }
-                else
-                {
-                    return "Удаление невозможно запись не содержится в справочнике";
-                }
-
-            }
-        }
-        public void swapRecords(ref info[] ar, int refRecordToRemove)
-        {
-            array[refRecordToRemove] = array[arraySize - 2];
-            array[arraySize - 2] = array[arraySize - 1];
-
-            return;
-        }
-
-        //-1 - dont find
-        public int findInArray(info record)
-        {
-            int i = 0;
-            foreach (info rec in array)
-            {
-                if (i == arraySize - 1)
-                {
-                    i = -1;
-                    break;
-                }
-                if (rec == record)
-                {
-                    break;
-                }
-                i++;
-            }
-            return i;
-        }
     }
 }

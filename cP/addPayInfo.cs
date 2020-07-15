@@ -15,16 +15,16 @@ using System.Windows.Forms.VisualStyles;
 
 namespace cP
 {
-    public partial class addInfo : Form
+    public partial class addPayInfo : Form
     {
         DataGridView dgw;
 
-        public addInfo()
+        public addPayInfo()
         {
             InitializeComponent();
         }
 
-        public addInfo(DataGridView dgw)
+        public addPayInfo(DataGridView dgw)
         {
             InitializeComponent();
             this.dgw = dgw;

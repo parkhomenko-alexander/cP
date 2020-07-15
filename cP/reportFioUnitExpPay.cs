@@ -43,7 +43,7 @@ namespace cP
                     string strForWrite = rC.array[i].field1 + " \\ ";
                     strForWrite += rC.array[i].field2 + " \\ ";
                     strForWrite += rC.array[i].field3 == null ? "не найдены данные о стаже" + " \\ " : rC.array[i].field3 + " \\ ";
-                    strForWrite += rC.array[i].field4 == null ? "не найдены данные о зп" + " \\ " : rC.array[i].field4;
+                    strForWrite += rC.array[i].field4 == null ? "не найдены данные о зп" : rC.array[i].field4;
                     flWR.WriteLine(strForWrite);
                 }
                 flWR.Close();

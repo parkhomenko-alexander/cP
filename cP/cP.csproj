@@ -49,15 +49,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addInfo.cs">
+    <Compile Include="addBonusInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addInfo.Designer.cs">
-      <DependentUpon>addInfo.cs</DependentUpon>
+    <Compile Include="addBonusInfo.Designer.cs">
+      <DependentUpon>addBonusInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="addPayInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addPayInfo.Designer.cs">
+      <DependentUpon>addPayInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="avlTree.cs" />
     <Compile Include="bynaryTreePay.cs" />
     <Compile Include="fileRW.cs" />
+    <Compile Include="findEmployeeInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="findEmployeeInfo.Designer.cs">
+      <DependentUpon>findEmployeeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="findPersonnelInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="findPersonnelInfo.Designer.cs">
+      <DependentUpon>findPersonnelInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +87,12 @@
     </Compile>
     <Compile Include="findPayInfo.Designer.cs">
       <DependentUpon>findPayInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="findBonusInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="findBonusInfo.Designer.cs">
+      <DependentUpon>findBonusInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="HashTable.cs" />
     <Compile Include="payMap.cs" />
@@ -99,8 +123,20 @@
       <DependentUpon>reportPayBonus.cs</DependentUpon>
     </Compile>
     <Compile Include="reportClass.cs" />
-    <EmbeddedResource Include="addInfo.resx">
-      <DependentUpon>addInfo.cs</DependentUpon>
+    <EmbeddedResource Include="addBonusInfo.resx">
+      <DependentUpon>addBonusInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="addPayInfo.resx">
+      <DependentUpon>addPayInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="findBonusInfo.resx">
+      <DependentUpon>findBonusInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="findEmployeeInfo.resx">
+      <DependentUpon>findEmployeeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="findPersonnelInfo.resx">
+      <DependentUpon>findPersonnelInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

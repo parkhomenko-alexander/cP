@@ -14,31 +14,75 @@ using pMap;
 using avlTree;
 using HashTable;
 using repClass;
+using System.IO;
+using System.Net.Mail;
 
 namespace cP
 {
     public partial class mainWindow : Form
     {
-
-        public void rewriteFile()
-        {
-
-        }
         public static bynaryTree bynaryTreeSourceData = new bynaryTree();
         fileRW objRW = new fileRW();
         public static payMap payInfoMap = new payMap();
         public static hashTable personnelMap = new hashTable();
         public static hashTable employeeMap = new hashTable();
-        AVL avl = new AVL();
         string sourceFileName;
-
         public mainWindow()
         {
             InitializeComponent();
         }
 
+        //Загрузка спавочников
         private void initPersonnelInfo_Click(object sender, EventArgs e)
         {
+            this.listBonusInfo.Rows.Clear();
+            this.listPayInfo.Rows.Clear();
+            this.listPersonnelInfo.Rows.Clear();
+            this.listEmployeeInfo.Rows.Clear();
+            if (bynaryTreeSourceData.arraySize != 1 && bynaryTreeSourceData.array[0].field1 != null)
+            {
+                bynaryTreeSourceData.root = null;
+                bynaryTreeSourceData.arraySize = 1;
+                Array.Resize(ref bynaryTreeSourceData.array, bynaryTreeSourceData.arraySize);
+                bynaryTreeSourceData.array[0].field1 = null;
+                bynaryTreeSourceData.array[0].field2 = null;
+                bynaryTreeSourceData.array[0].field3 = null;
+
+                payInfoMap.arraySize = 1;
+                Array.Resize(ref payInfoMap.array, payInfoMap.arraySize);
+                payInfoMap.array[0].field1 = null;
+                payInfoMap.array[0].field2 = null;
+                payInfoMap.array[0].field3 = null;
+                Array.Resize(ref payInfoMap.arrayForReport, 0);
+                payInfoMap.arrayForReportSize = 16;
+                Array.Resize(ref payInfoMap.arrayForReport, payInfoMap.arrayForReportSize);
+
+                personnelMap.arraySize = 1;
+                Array.Resize(ref personnelMap.array, personnelMap.arraySize);
+                personnelMap.array[0].field1 = null;
+                personnelMap.array[0].field2 = null;
+                personnelMap.array[0].field3 = null;
+                Array.Resize(ref personnelMap.arrayRoot, 0);
+                personnelMap.arrayRootSize = 16;
+                Array.Resize(ref personnelMap.arrayRoot, personnelMap.arrayRootSize);
+                for (int i = 0; i < personnelMap.arrayRootSize - 1; i++)
+                {
+                    personnelMap.arrayRoot[i] = new LinkedList();
+                }
+
+                employeeMap.arraySize = 1;
+                Array.Resize(ref employeeMap.array, employeeMap.arraySize);
+                employeeMap.array[0].field1 = null;
+                employeeMap.array[0].field2 = null;
+                employeeMap.array[0].field3 = null;
+                Array.Resize(ref employeeMap.arrayRoot, 0);
+                employeeMap.arrayRootSize = 16;
+                Array.Resize(ref employeeMap.arrayRoot, employeeMap.arrayRootSize);
+                for (int i = 0; i < employeeMap.arrayRootSize - 1; i++)
+                {
+                    employeeMap.arrayRoot[i] = new LinkedList();
+                }
+            }
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -106,6 +150,54 @@ namespace cP
 
         private void button18_Click(object sender, EventArgs e)
         {
+            this.listBonusInfo.Rows.Clear();
+            this.listPayInfo.Rows.Clear();
+            this.listPersonnelInfo.Rows.Clear();
+            this.listEmployeeInfo.Rows.Clear();
+            if (bynaryTreeSourceData.arraySize != 1 && bynaryTreeSourceData.array[0].field1 != null)
+            {
+                bynaryTreeSourceData.root = null;
+                bynaryTreeSourceData.arraySize = 1;
+                Array.Resize(ref bynaryTreeSourceData.array, bynaryTreeSourceData.arraySize);
+                bynaryTreeSourceData.array[0].field1 = null;
+                bynaryTreeSourceData.array[0].field2 = null;
+                bynaryTreeSourceData.array[0].field3 = null;
+
+                payInfoMap.arraySize = 1;
+                Array.Resize(ref payInfoMap.array, payInfoMap.arraySize);
+                payInfoMap.array[0].field1 = null;
+                payInfoMap.array[0].field2 = null;
+                payInfoMap.array[0].field3 = null;
+                Array.Resize(ref payInfoMap.arrayForReport, 0);
+                payInfoMap.arrayForReportSize = 16;
+                Array.Resize(ref payInfoMap.arrayForReport, payInfoMap.arrayForReportSize);
+
+                personnelMap.arraySize = 1;
+                Array.Resize(ref personnelMap.array, personnelMap.arraySize);
+                personnelMap.array[0].field1 = null;
+                personnelMap.array[0].field2 = null;
+                personnelMap.array[0].field3 = null;
+                Array.Resize(ref personnelMap.arrayRoot, 0);
+                personnelMap.arrayRootSize = 16;
+                Array.Resize(ref personnelMap.arrayRoot, personnelMap.arrayRootSize);
+                for (int i = 0; i < personnelMap.arrayRootSize; i++)
+                {
+                    personnelMap.arrayRoot[i] = new LinkedList();
+                }
+
+                employeeMap.arraySize = 1;
+                Array.Resize(ref employeeMap.array, employeeMap.arraySize);
+                employeeMap.array[0].field1 = null;
+                employeeMap.array[0].field2 = null;
+                employeeMap.array[0].field3 = null;
+                Array.Resize(ref employeeMap.arrayRoot, 0);
+                employeeMap.arrayRootSize = 16;
+                Array.Resize(ref employeeMap.arrayRoot, employeeMap.arrayRootSize);
+                for (int i = 0; i < employeeMap.arrayRootSize; i++)
+                {
+                    employeeMap.arrayRoot[i] = new LinkedList();
+                }
+            }
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -170,12 +262,7 @@ namespace cP
 
             objRW.closeReader();
         }
-
-        private void getPayInfo_Click(object sender, EventArgs e)
-        {
-            findPayInfo fpi = new findPayInfo();
-            fpi.Show();
-        }
+        //
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -194,54 +281,152 @@ namespace cP
 
         }
 
-        
-
+        //Поиск записей
         private void button15_Click(object sender, EventArgs e)
         {
             findPayInfo fpi = new findPayInfo();
             fpi.Show();
         }
 
-        private void button16_Click(object sender, EventArgs e)
+        private void getPayInfo_Click(object sender, EventArgs e)
         {
-            if (listBonusInfo.Rows.Count == 1)
+            findPayInfo fpi = new findPayInfo();
+            fpi.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            findEmployeeInfo fei = new findEmployeeInfo();
+            fei.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            findPersonnelInfo fpi = new findPersonnelInfo();
+            fpi.Show();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            findBonusInfo fbi = new findBonusInfo();
+            fbi.Show();
+        }
+
+        //
+
+        //Завершение работы
+        private void mainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (sourceFileName != null)
             {
-                return;
-            }
-            int indexRow = listBonusInfo.SelectedCells[0].RowIndex;
-            
-            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
-                "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) 
-                == DialogResult.Yes)
-            {
-                listBonusInfo.Rows.RemoveAt(indexRow);
+                StreamWriter writer = new StreamWriter(sourceFileName, false);
+
+                string stringForWrite = null;
+                for (int i = 0; i < payInfoMap.arraySize - 1; i++)
+                {
+                    stringForWrite += "1 " + payInfoMap.array[i].field2 + "; " + payInfoMap.array[i].field1 + "; " + payInfoMap.array[i].field3;
+                    writer.WriteLine(stringForWrite);
+                    stringForWrite = null;
+                }
+
+                stringForWrite = null;
+                for (int i = 0; i < bynaryTreeSourceData.arraySize - 1; i++)
+                {
+                    stringForWrite += "2 " + bynaryTreeSourceData.array[i].field2 + "; " + bynaryTreeSourceData.array[i].field1 + "; " + bynaryTreeSourceData.array[i].field3;
+                    writer.WriteLine(stringForWrite);
+                    stringForWrite = null;
+                }
+
+                stringForWrite = null;
+                for (int i = 0; i < personnelMap.arraySize - 1; i++)
+                {
+                    stringForWrite += "3 " + personnelMap.array[i].field1 + "; " + personnelMap.array[i].field2 + "; " + personnelMap.array[i].field3;
+                    writer.WriteLine(stringForWrite);
+                    stringForWrite = null;
+                }
+
+                stringForWrite = null;
+                for (int i = 0; i < employeeMap.arraySize - 1; i++)
+                {
+                    if (i == employeeMap.arraySize - 2)
+                    {
+                        stringForWrite += "4 " + employeeMap.array[i].field1 + "; " + employeeMap.array[i].field2 + "; " + employeeMap.array[i].field3;
+                        writer.Write(stringForWrite);
+                        writer.Close();
+                        return;
+                    }
+                    stringForWrite += "4 " + employeeMap.array[i].field1 + "; " + employeeMap.array[i].field2 + "; " + employeeMap.array[i].field3;
+                    writer.WriteLine(stringForWrite);
+                    stringForWrite = null;
+                }
             }
             else
             {
-                return;
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.CreatePrompt = true;
+                sfd.DefaultExt = "txt";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    StreamWriter writer = new StreamWriter(sfd.FileName, false);
+
+                    string stringForWrite = null;
+                    for (int i = 0; i < payInfoMap.arraySize - 1; i++)
+                    {
+                        stringForWrite += "1 " + payInfoMap.array[i].field2 + "; " + payInfoMap.array[i].field1 + "; " + payInfoMap.array[i].field3;
+                        writer.WriteLine(stringForWrite);
+                        stringForWrite = null;
+                    }
+
+                    stringForWrite = null;
+                    for (int i = 0; i < bynaryTreeSourceData.arraySize - 1; i++)
+                    {
+                        stringForWrite += "2 " + bynaryTreeSourceData.array[i].field2 + "; " + bynaryTreeSourceData.array[i].field1 + "; " + bynaryTreeSourceData.array[i].field3;
+                        writer.WriteLine(stringForWrite);
+                        stringForWrite = null;
+                    }
+
+                    stringForWrite = null;
+                    for (int i = 0; i < personnelMap.arraySize - 1; i++)
+                    {
+                        stringForWrite += "3 " + personnelMap.array[i].field1 + "; " + personnelMap.array[i].field2 + "; " + personnelMap.array[i].field3;
+                        writer.WriteLine(stringForWrite);
+                        stringForWrite = null;
+                    }
+
+                    stringForWrite = null;
+                    for (int i = 0; i < employeeMap.arraySize - 1; i++)
+                    {
+                        if (i == employeeMap.arraySize - 2)
+                        {
+                            stringForWrite += "4 " + employeeMap.array[i].field1 + "; " + employeeMap.array[i].field2 + "; " + employeeMap.array[i].field3;
+                            writer.Write(stringForWrite);
+                            writer.Close();
+                            return;
+                        }
+                        stringForWrite += "4 " + employeeMap.array[i].field1 + "; " + employeeMap.array[i].field2 + "; " + employeeMap.array[i].field3;
+                        writer.WriteLine(stringForWrite);
+                        stringForWrite = null;
+                    }
+                }
             }
-
         }
+        //
 
-        private void listBonusInfo_Click(object sender, EventArgs e)
-        {
-            if (listBonusInfo.Rows.Count == 1)
-            {
-                return;
-            }
-            int indexRow = listBonusInfo.SelectedCells[0].RowIndex;
-
-            int index = this.listBonusInfo.CurrentCell.RowIndex;
-            this.listBonusInfo.Rows[index].Selected = false;
-
-        }
-
+        //Добавление записей
         private void button17_Click(object sender, EventArgs e)
         {
-            addInfo ai = new addInfo(this.listBonusInfo);
+            addPayInfo ai = new addPayInfo(this.listBonusInfo);
             ai.Show();
         }
 
+        private void button14_Click(object sender, EventArgs e)
+        {
+            addBonusInfo ai = new addBonusInfo(this.listPayInfo);
+            ai.Show();
+        }
+        //
+
+        //Отчеты
         private void button10_Click(object sender, EventArgs e)
         {
             reportClass classToReport = new reportClass();
@@ -264,8 +449,14 @@ namespace cP
 
         private void button9_Click(object sender, EventArgs e)
         {
+            AVL bynaryAvlTree = new AVL();
+            for (int i = 0; i < personnelMap.arraySize - 1; i++)
+            {
+                bynaryAvlTree.Add(personnelMap.array[i].field2, personnelMap.array[i].field1, personnelMap.array[i].field3);
+            }
+
             reportClass classToReport = new reportClass();
-            personnelMap.getReport(classToReport, payInfoMap);
+            bynaryAvlTree.getReport(bynaryAvlTree.root, classToReport, payInfoMap);
             reportFioPay rep = new reportFioPay(classToReport);
             rep.Show();
             for (int i = 0; i < classToReport.arraySize - 1; i++)
@@ -315,6 +506,108 @@ namespace cP
             MessageBox.Show("Обратите внимание - корректность данных может быть нарушена!\n" +
                 "Соответсвующие данные будут отмечены", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+        //
+
+        //Удаление
+        private void button16_Click(object sender, EventArgs e)
+        {
+            if (listBonusInfo.Rows.Count == 1)
+            {
+                return;
+            }
+            int indexRow = listBonusInfo.SelectedCells[0].RowIndex;
+
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+                "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                DataGridViewRow selectedRow = listBonusInfo.Rows[indexRow];
+                payInfoMap.eraseFromArray(selectedRow.Cells[2].Value.ToString(), selectedRow.Cells[1].Value.ToString(), selectedRow.Cells[3].Value.ToString());
+                pMap.info record = new pMap.info(selectedRow.Cells[2].Value.ToString(), selectedRow.Cells[1].Value.ToString(), selectedRow.Cells[3].Value.ToString());
+                payInfoMap.removeFromHashTable(record);
+                listBonusInfo.Rows.RemoveAt(indexRow);
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (listPayInfo.Rows.Count == 1)
+            {
+                return;
+            }
+            int indexRow = listPayInfo.SelectedCells[0].RowIndex;
+
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+                "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                DataGridViewRow selectedRow = listPayInfo.Rows[indexRow];
+                bynaryTreeSourceData.eraseFromArray(selectedRow.Cells[1].Value.ToString(), selectedRow.Cells[0].Value.ToString(), selectedRow.Cells[2].Value.ToString());
+                bynTree.node record = new bynTree.node(selectedRow.Cells[1].Value.ToString(), selectedRow.Cells[0].Value.ToString(), selectedRow.Cells[2].Value.ToString());
+                bynaryTreeSourceData.removeNode(bynaryTreeSourceData.findNode(record));
+                listPayInfo.Rows.RemoveAt(indexRow);
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (listEmployeeInfo.Rows.Count == 1)
+            {
+                return;
+            }
+            int indexRow = listEmployeeInfo.SelectedCells[0].RowIndex;
+
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+                "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                DataGridViewRow selectedRow = listEmployeeInfo.Rows[indexRow];
+                employeeMap.eraseFromArray(selectedRow.Cells[1].Value.ToString(), selectedRow.Cells[2].Value.ToString(), selectedRow.Cells[3].Value.ToString());
+                employeeMap.removeFromHashTable(selectedRow.Cells[1].Value.ToString());
+                listEmployeeInfo.Rows.RemoveAt(indexRow);
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (listPersonnelInfo.Rows.Count == 1)
+            {
+                return;
+            }
+            int indexRow = listPersonnelInfo.SelectedCells[0].RowIndex;
+
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+                "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                DataGridViewRow selectedRow = listPersonnelInfo.Rows[indexRow];
+                personnelMap.eraseFromArray(selectedRow.Cells[1].Value.ToString(), selectedRow.Cells[2].Value.ToString(), selectedRow.Cells[3].Value.ToString());
+                personnelMap.removeFromHashTable(selectedRow.Cells[1].Value.ToString());
+                listPersonnelInfo.Rows.RemoveAt(indexRow);
+
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        //
     }
  
 }
