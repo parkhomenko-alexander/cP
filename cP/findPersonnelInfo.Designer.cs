@@ -228,6 +228,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.infoBox);
             this.Name = "findPersonnelInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сведения о сотруднике";
             this.ResumeLayout(false);
             this.PerformLayout();

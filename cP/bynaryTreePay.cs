@@ -95,7 +95,7 @@ namespace bynTree
                     }
                 case 4:
                     {
-                        return "В записи коеффициента использованы не только цифры";
+                        return "В записи процента использованы не только цифры";
                     }
                 case 5:
                     {
@@ -186,8 +186,8 @@ namespace bynTree
         {
             n1 ??= new node("", "", "");
             n2 ??= new node("", "", "");
-            string strN1 = n1.field2 + n1.field1 + n1.field3;
-            string strN2 = n2.field2 + n2.field1 + n2.field3;
+            string strN1 = n1.field2 + n1.field1;
+            string strN2 = n2.field2 + n2.field1;
             if (strN1.CompareTo(strN2) == 1 || strN1.CompareTo(strN2) == -1)
             {
                 return true;

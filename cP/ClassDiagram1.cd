@@ -17,7 +17,8 @@
   <Class Name="cP.addPayInfo" Collapsed="true">
     <Position X="21.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAACAAABAAAACAAABCIAAoAAAAEAAAAAAAAAA=</HashCode>
+      <HashCode>ACAAAAAAACAACBAAAACAAABCIAAoAAAAEGAAAAAAAAA=</HashCode>
+      <FileName>addPayInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="cP.addPersonnelInfo" Collapsed="true">
@@ -71,7 +72,6 @@
     <Members>
       <Field Name="backGroundForPersonnelInfo" Hidden="true" />
       <Field Name="backGroundPayList" Hidden="true" />
-      <Field Name="button1" Hidden="true" />
       <Method Name="button1_Click" Hidden="true" />
       <Method Name="button1_Click_1" Hidden="true" />
       <Field Name="button10" Hidden="true" />
@@ -147,7 +147,7 @@
         <Point X="19.05" Y="4.05" />
         <Point X="19.05" Y="12.611" />
         <Point X="11" Y="12.611" />
-        <Point X="11" Y="12.219" />
+        <Point X="11" Y="11.642" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="-1.437" Y="0.081" Height="0.182" Width="1.316" />
@@ -250,6 +250,9 @@
     <Position X="12.75" Y="3.5" Width="1.5" />
     <Members>
       <Field Name="arraySize" Hidden="true" />
+      <Method Name="eraseFromArray" Hidden="true" />
+      <Method Name="findInArray" Hidden="true" />
+      <Method Name="swapRecords" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>BMABAAAAAAAAAAAAAAg4BAAAABBAAAAAAAgAAACgYQA=</HashCode>
@@ -315,11 +318,16 @@
     <Members>
       <Property Name="arrayRootSize" Hidden="true" />
       <Property Name="arraySize" Hidden="true" />
+      <Method Name="eraseFromArray" Hidden="true" />
+      <Method Name="findInArray" Hidden="true" />
+      <Method Name="swapRecords" Hidden="true" />
     </Members>
     <AssociationLine Name="array" Type="HashTable.info" ManuallyRouted="true">
       <Path>
-        <Point X="11.531" Y="12.219" />
-        <Point X="14.326" Y="12.219" />
+        <Point X="11.531" Y="11.642" />
+        <Point X="12.453" Y="11.642" />
+        <Point X="12.453" Y="12.175" />
+        <Point X="14.326" Y="12.175" />
         <Point X="14.326" Y="12.412" />
         <Point X="18.967" Y="12.412" Type="JumpStart" />
         <Point X="19.133" Y="12.412" Type="JumpEnd" />
@@ -347,8 +355,11 @@
       <Field Name="arrayForReport" Hidden="true" />
       <Property Name="arrayForReportSize" Hidden="true" />
       <Property Name="arraySize" Hidden="true" />
+      <Method Name="eraseFromArray" Hidden="true" />
+      <Method Name="findInArray" Hidden="true" />
       <Property Name="recorded" Hidden="true" />
       <Property Name="recordedCoef" Hidden="true" />
+      <Method Name="swapRecords" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAhTAAAAQAAAAIgAAiYAABAAABIgAAAAAABAASgIAA=</HashCode>

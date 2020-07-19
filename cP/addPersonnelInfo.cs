@@ -27,7 +27,7 @@ namespace cP
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Добавление данных может повлечь нарушение целостности информации?\n" +
+            if (MessageBox.Show("Добавление данных может повлечь нарушение целостности информации\n" +
                    "Все равно добавить?", "Добавление данных", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                    == DialogResult.Yes)
             {

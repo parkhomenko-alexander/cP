@@ -69,7 +69,6 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.listBonusInfo)).BeginInit();
             this.tabForm.SuspendLayout();
             this.backGroundPayList.SuspendLayout();
@@ -119,7 +118,7 @@
             // Column3
             // 
             this.Column3.FillWeight = 83.42246F;
-            this.Column3.HeaderText = "коеффициент";
+            this.Column3.HeaderText = "коэффициент";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             // 
@@ -135,7 +134,6 @@
             // 
             // backGroundPayList
             // 
-            this.backGroundPayList.Controls.Add(this.button1);
             this.backGroundPayList.Controls.Add(this.button10);
             this.backGroundPayList.Controls.Add(this.button11);
             this.backGroundPayList.Controls.Add(this.button12);
@@ -207,7 +205,7 @@
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(1242, 406);
+            this.button15.Location = new System.Drawing.Point(1026, 408);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(212, 55);
             this.button15.TabIndex = 15;
@@ -227,7 +225,7 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(1024, 406);
+            this.button17.Location = new System.Drawing.Point(1242, 406);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(212, 55);
             this.button17.TabIndex = 17;
@@ -471,16 +469,6 @@
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(682, 478);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 44);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // mainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -533,10 +521,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
@@ -545,7 +529,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }
 

@@ -78,19 +78,19 @@ namespace pMap
                     }
                 case 3:
                     {
-                        return "В записи з\\п использованы не только цифры";
+                        return "В записи зп использованы не только цифры";
                     }
                 case 4:
                     {
-                        return "В записи коеффициента использованы не только цифры";
+                        return "В записи коэффициента использованы не только цифры";
                     }
                 case 5:
                     {
-                        return "Размер з\\п не может быть меньше МРОТ";
+                        return "Размер зп не может быть меньше МРОТ";
                     }
                 case 6:
                     {
-                        return "Некорректное значение коеффициента";
+                        return "Некорректное значение коэффициента";
                     }
                 default:
                     {
@@ -214,7 +214,8 @@ namespace pMap
         public int getEmptyHashAddress(string field2)
         {
             int hashAdreeLevel1 = hFunction1(field2);
-            if (this.arrayForReport[hashAdreeLevel1].field2 == null || this.arrayForReport[hashAdreeLevel1].field2 == "deleted")
+            if (this.arrayForReport[hashAdreeLevel1].field2 == null || 
+                this.arrayForReport[hashAdreeLevel1].field2 == "deleted")
             {
                 return hashAdreeLevel1;
             }
@@ -224,7 +225,8 @@ namespace pMap
                 for (int i = 1; i < arrayForReportSize; i++)
                 {
                     int insertionAdress = (hashAdreeLevel1 + i * hashAdressLevel2) % arrayForReportSize;
-                    if (this.arrayForReport[insertionAdress].field2 == null || this.arrayForReport[insertionAdress].field2 == "deleted")
+                    if (this.arrayForReport[insertionAdress].field2 == null || 
+                        this.arrayForReport[insertionAdress].field2 == "deleted")
                     {
                         return insertionAdress;
                     }
@@ -270,7 +272,8 @@ namespace pMap
         public void addInArrayForReport(info record)
         {
             int hashAdreeLevel1 = hFunction1(record.field2);
-            if (this.arrayForReport[hashAdreeLevel1].field2 == null || this.arrayForReport[hashAdreeLevel1].field2 == "deleted")
+            if (this.arrayForReport[hashAdreeLevel1].field2 == null || 
+                this.arrayForReport[hashAdreeLevel1].field2 == "deleted")
             {
                 this.arrayForReport[hashAdreeLevel1] = record;
                 this.recorded++;
@@ -285,7 +288,8 @@ namespace pMap
                 for (int i = 1; i < arrayForReportSize; i++)
                 {
                    int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
-                   if (this.arrayForReport[insertionAdress].field2 == null || this.arrayForReport[insertionAdress].field2 == "deleted")
+                   if (this.arrayForReport[insertionAdress].field2 == null || 
+                        this.arrayForReport[insertionAdress].field2 == "deleted")
                    {
                         this.arrayForReport[insertionAdress] = record;
                         this.recorded++;
@@ -347,49 +351,49 @@ namespace pMap
         /// <summary>
         /// Поиск по всем трём полям
         /// </summary>
-        public Tuple<int, info, int> findInHashTable(info record)
-        {
-            int comparisonCounter = 1;
-            if (recorded == 0)
-            {
-                info returnRec = new info();
-                return Tuple.Create(-1, returnRec, -1);
-            }
-            else
-            {   
-                int hashAdreeLevel1 = hFunction1(record.field2);
-                if (this.arrayForReport[hashAdreeLevel1].field2 == record.field2)
-                {
-                    comparisonCounter++;
-                    return Tuple.Create(hashAdreeLevel1, this.arrayForReport[hashAdreeLevel1], comparisonCounter);
-                }
-                else
-                {
-                    int hasAdreeLevel2 = this.hFunction2(record.field2);
-                    for (int i = 1; i < arrayForReportSize; i++)
-                    {
-                        comparisonCounter++;
-                        int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
-                        if (this.arrayForReport[insertionAdress].field2 == record.field2)
-                        {
-                            return Tuple.Create(insertionAdress, this.arrayForReport[insertionAdress], comparisonCounter);
-                        }
-                        else
-                        {   if(this.arrayForReport[insertionAdress].field2 == "deleted")
-                            {
-                                continue;
-                            }
-                            else 
-                            {
-                                return Tuple.Create(-2, this.arrayForReport[insertionAdress], -2);
-                            }
-                        }
-                    }
-                }
+        //public Tuple<int, info, int> findInHashTable(info record)
+        //{
+        //    int comparisonCounter = 1;
+        //    if (recorded == 0)
+        //    {
+        //        info returnRec = new info();
+        //        return Tuple.Create(-1, returnRec, -1);
+        //    }
+        //    else
+        //    {   
+        //        int hashAdreeLevel1 = hFunction1(record.field2);
+        //        if (this.arrayForReport[hashAdreeLevel1].field2 == record.field2)
+        //        {
+        //            comparisonCounter++;
+        //            return Tuple.Create(hashAdreeLevel1, this.arrayForReport[hashAdreeLevel1], comparisonCounter);
+        //        }
+        //        else
+        //        {
+        //            int hasAdreeLevel2 = this.hFunction2(record.field2);
+        //            for (int i = 1; i < arrayForReportSize; i++)
+        //            {
+        //                comparisonCounter++;
+        //                int insertionAdress = (hashAdreeLevel1 + i * hasAdreeLevel2) % arrayForReportSize;
+        //                if (this.arrayForReport[insertionAdress].field2 == record.field2)
+        //                {
+        //                    return Tuple.Create(insertionAdress, this.arrayForReport[insertionAdress], comparisonCounter);
+        //                }
+        //                else
+        //                {   if(this.arrayForReport[insertionAdress].field2 == "deleted")
+        //                    {
+        //                        continue;
+        //                    }
+        //                    else 
+        //                    {
+        //                        return Tuple.Create(-2, this.arrayForReport[insertionAdress], -2);
+        //                    }
+        //                }
+        //            }
+        //        }
 
-            }
-            return Tuple.Create(-2, new info(), comparisonCounter);
-        }
+        //    }
+        //    return Tuple.Create(-2, new info(), comparisonCounter);
+        //}
         
         /// <summary>
         /// Поиск по должности
@@ -475,13 +479,14 @@ namespace pMap
 
         public string checkForDownReHashing()
         {
-            if (this.recordedCoef < 0.25)
+            if (this.recordedCoef >= 0.25)
             {
                 return null;
             }
             else
             {
                 this.arrayForReportSize /= 2;
+                recorded = 0;
                 Array.Resize(ref this.arrayForReport, 0);
                 Array.Resize(ref this.arrayForReport, this.arrayForReportSize);
                 for (int i = 0; i < this.arraySize - 1; i++)
@@ -503,6 +508,7 @@ namespace pMap
 
             return result % arrayForReportSize;
         }
+
         public int hFunction2(string key)
         {
             int result = 0;
@@ -511,9 +517,6 @@ namespace pMap
             {
                 result += letter;
             }
-
-            //result *= key[0];
-            result += 23;
 
             if(result % 2 == 0)
             {

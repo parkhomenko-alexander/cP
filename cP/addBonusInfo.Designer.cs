@@ -156,6 +156,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox4);
             this.Name = "addBonusInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Новая запись о премии";
             this.ResumeLayout(false);
             this.PerformLayout();

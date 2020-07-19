@@ -96,7 +96,7 @@ namespace cP
             string tmpStringFromFile = objRW.reader.ReadLine();
             string[] parsedStringForHashTable = new string[3];
 
-            while (tmpStringFromFile != null && tmpStringFromFile[0] != '2')
+            while (tmpStringFromFile != null && tmpStringFromFile[0] == '1')
             {
                 parsedStringForHashTable = objRW.readerPars(tmpStringFromFile, 1);
                 parsedStringForHashTable[1] = parsedStringForHashTable[1].Remove(0, 2);
@@ -109,7 +109,7 @@ namespace cP
             }
 
             string[] parsedString = new string[2];
-            while (tmpStringFromFile[0] != '3')
+            while (tmpStringFromFile[0] == '2')
             {
                 parsedString = objRW.readerPars(tmpStringFromFile);
                 parsedString[0] = parsedString[0].Remove(0, 2);
@@ -121,7 +121,7 @@ namespace cP
 
             parsedString = null;
 
-            while (tmpStringFromFile[0] != '4')
+            while (tmpStringFromFile[0] == '3')
             {
                 parsedStringForHashTable = objRW.readerPars(tmpStringFromFile, 1);
                 parsedStringForHashTable[1] = parsedStringForHashTable[1].Remove(0, 2);
@@ -211,7 +211,7 @@ namespace cP
             string tmpStringFromFile = objRW.reader.ReadLine();
             string[] parsedStringForHashTable = new string[3];
 
-            while (tmpStringFromFile != null && tmpStringFromFile[0] != '2')
+            while (tmpStringFromFile != null && tmpStringFromFile[0] == '1')
             {
                 parsedStringForHashTable = objRW.readerPars(tmpStringFromFile, 1);
                 parsedStringForHashTable[1] = parsedStringForHashTable[1].Remove(0, 2);
@@ -224,7 +224,7 @@ namespace cP
             }
 
             string[] parsedString = new string[2];
-            while (tmpStringFromFile[0] != '3')
+            while (tmpStringFromFile[0] == '2')
             {
                 parsedString = objRW.readerPars(tmpStringFromFile);
                 parsedString[0] = parsedString[0].Remove(0, 2);
@@ -236,7 +236,7 @@ namespace cP
 
             parsedString = null;
 
-            while (tmpStringFromFile[0] != '4')
+            while (tmpStringFromFile[0] == '3')
             {
                 parsedStringForHashTable = objRW.readerPars(tmpStringFromFile, 1);
                 parsedStringForHashTable[1] = parsedStringForHashTable[1].Remove(0, 2);
@@ -359,6 +359,7 @@ namespace cP
                     writer.WriteLine(stringForWrite);
                     stringForWrite = null;
                 }
+                writer.Close();
             }
             else
             {
@@ -407,6 +408,7 @@ namespace cP
                         writer.WriteLine(stringForWrite);
                         stringForWrite = null;
                     }
+                    writer.Close();
                 }
             }
         }
@@ -450,7 +452,7 @@ namespace cP
             {
                 string[] toInsert = new string[4];
                 toInsert[0] = classToReport.array[i].field1;
-                toInsert[1] = classToReport.array[i].field2 ?? "не найденный данные о зп";
+                toInsert[1] = classToReport.array[i].field2 ?? "не найденны данные о зп";
                 toInsert[2] = classToReport.array[i].field3;
                 toInsert[3] = classToReport.array[i].field4;
                 rep.dataGridView1.Rows.Add(toInsert);
@@ -476,7 +478,7 @@ namespace cP
             {
                 string[] toInsert = new string[2];
                 toInsert[0] = classToReport.array[i].field1;
-                toInsert[1] = classToReport.array[i].field2 ?? "не найденный данные о зп";
+                toInsert[1] = classToReport.array[i].field2 ?? "не найденны данные о зп";
                 rep.dataGridView1.Rows.Add(toInsert);
             }
             MessageBox.Show("Обратите внимание - корректность данных может быть нарушена!\n" +
@@ -495,8 +497,8 @@ namespace cP
                 string[] toInsert = new string[4];
                 toInsert[0] = classToReport.array[i].field1;
                 toInsert[1] = classToReport.array[i].field2;
-                toInsert[2] = classToReport.array[i].field3 ?? "не найденный данные о стаже";
-                toInsert[3] = classToReport.array[i].field4 ?? "не найденный данные о зп";
+                toInsert[2] = classToReport.array[i].field3 ?? "не найденны данные о стаже";
+                toInsert[3] = classToReport.array[i].field4 ?? "не найденны данные о зп";
                 rep.dataGridView1.Rows.Add(toInsert);
             }
             MessageBox.Show("Обратите внимание - корректность данных может быть нарушена!\n" +
@@ -513,7 +515,7 @@ namespace cP
                 string[] toInsert = new string[3];
                 toInsert[0] = classToReport.array[i].field1;
                 toInsert[1] = classToReport.array[i].field2;
-                toInsert[2] = classToReport.array[i].field3 ?? "не найденный данные о стаже";
+                toInsert[2] = classToReport.array[i].field3 ?? "не найденны данные о стаже";
                 rep.dataGridView1.Rows.Add(toInsert);
             }
             MessageBox.Show("Обратите внимание - корректность данных может быть нарушена!\n" +
@@ -530,7 +532,7 @@ namespace cP
             }
             int indexRow = listBonusInfo.SelectedCells[0].RowIndex;
 
-            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации\n" +
                 "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
@@ -571,7 +573,7 @@ namespace cP
             }
             int indexRow = listPayInfo.SelectedCells[0].RowIndex;
 
-            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации\n" +
                 "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
@@ -596,7 +598,7 @@ namespace cP
             }
             int indexRow = listEmployeeInfo.SelectedCells[0].RowIndex;
 
-            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации\n" +
                 "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
@@ -620,7 +622,7 @@ namespace cP
             }
             int indexRow = listPersonnelInfo.SelectedCells[0].RowIndex;
 
-            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации?\n" +
+            if (MessageBox.Show("Удаление может повлечь нарушение целостности информации\n" +
                 "Продолжить удаление?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 == DialogResult.Yes)
             {
@@ -638,7 +640,12 @@ namespace cP
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
+            string s1 = "инженер";
+            int i = payInfoMap.hFunction1(s1);
+            string s2 = "менеджер";
+            i = payInfoMap.hFunction1(s2);
+            string s3 = "инженер";
+            i = payInfoMap.hFunction1(s3);
         }
 
         //

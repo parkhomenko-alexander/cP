@@ -59,7 +59,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 18);
             this.label4.TabIndex = 39;
-            this.label4.Text = "Коеффициент";
+            this.label4.Text = "Коэффициент";
             // 
             // label3
             // 
@@ -168,6 +168,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox4);
             this.Name = "addEmployeeInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись о сотруднике";
             this.ResumeLayout(false);
             this.PerformLayout();

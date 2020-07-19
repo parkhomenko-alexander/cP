@@ -168,6 +168,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox4);
             this.Name = "addPersonnelInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись о сотруднике";
             this.ResumeLayout(false);
             this.PerformLayout();

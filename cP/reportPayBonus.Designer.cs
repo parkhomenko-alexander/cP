@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.ОК = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.ОК = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,26 +53,6 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(776, 484);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(223, 526);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 51);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Сохранить в файл";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // ОК
-            // 
-            this.ОК.Location = new System.Drawing.Point(449, 526);
-            this.ОК.Name = "ОК";
-            this.ОК.Size = new System.Drawing.Size(107, 51);
-            this.ОК.TabIndex = 2;
-            this.ОК.Text = "ОК";
-            this.ОК.UseVisualStyleBackColor = true;
-            this.ОК.Click += new System.EventHandler(this.ОК_Click);
             // 
             // Column1
             // 
@@ -102,6 +82,26 @@
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(223, 526);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 51);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Сохранить в файл";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ОК
+            // 
+            this.ОК.Location = new System.Drawing.Point(449, 526);
+            this.ОК.Name = "ОК";
+            this.ОК.Size = new System.Drawing.Size(107, 51);
+            this.ОК.TabIndex = 2;
+            this.ОК.Text = "ОК";
+            this.ОК.UseVisualStyleBackColor = true;
+            this.ОК.Click += new System.EventHandler(this.ОК_Click);
+            // 
             // reportPayBonus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -111,6 +111,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "reportPayBonus";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет о заработных платах и премиях сотрудников";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
