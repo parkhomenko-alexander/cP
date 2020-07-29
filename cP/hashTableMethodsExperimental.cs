@@ -124,6 +124,7 @@ namespace cP
             {
                 if (s == textBox2.Text)
                 {
+                    MessageBox.Show("Такая запись уже содержится в справочнике", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
