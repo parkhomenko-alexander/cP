@@ -20,3 +20,5 @@ C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addBonusInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addPayInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addPersonnelInfo.resources
 C:\Users\al\source\repos\cP\cP\obj\Debug\cP.addEmployeeInfo.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.hashFunctionExperimental.resources
+C:\Users\al\source\repos\cP\cP\obj\Debug\cP.hashTableMethodsExperimental.resources

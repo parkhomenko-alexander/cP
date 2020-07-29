@@ -16,6 +16,7 @@ using HashTable;
 using repClass;
 using System.IO;
 using System.Net.Mail;
+using expHashTable;
 
 namespace cP
 {
@@ -647,7 +648,21 @@ namespace cP
             string s3 = "инженер";
             i = payInfoMap.hFunction1(s3);
         }
+        //
 
+        //эксперимент
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            hashFunctionExperimental hfe = new hashFunctionExperimental();
+            hfe.Show();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            
+            hashTableMethodsExperimental htme = new hashTableMethodsExperimental();
+            htme.Show();
+        }
         //
     }
  

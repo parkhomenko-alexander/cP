@@ -35,6 +35,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabForm = new System.Windows.Forms.TabControl();
             this.backGroundPayList = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -69,6 +70,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.button19 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.listBonusInfo)).BeginInit();
             this.tabForm.SuspendLayout();
             this.backGroundPayList.SuspendLayout();
@@ -134,6 +136,7 @@
             // 
             // backGroundPayList
             // 
+            this.backGroundPayList.Controls.Add(this.button1);
             this.backGroundPayList.Controls.Add(this.button10);
             this.backGroundPayList.Controls.Add(this.button11);
             this.backGroundPayList.Controls.Add(this.button12);
@@ -152,6 +155,16 @@
             this.backGroundPayList.TabIndex = 0;
             this.backGroundPayList.Text = "Информация о заработной плате";
             this.backGroundPayList.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(627, 467);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(204, 54);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Эксперименты над хеш-функциями";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // button10
             // 
@@ -279,6 +292,7 @@
             // 
             // backGroundForPersonnelInfo
             // 
+            this.backGroundForPersonnelInfo.Controls.Add(this.button19);
             this.backGroundForPersonnelInfo.Controls.Add(this.button9);
             this.backGroundForPersonnelInfo.Controls.Add(this.button6);
             this.backGroundForPersonnelInfo.Controls.Add(this.button5);
@@ -469,6 +483,16 @@
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(627, 467);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(204, 54);
+            this.button19.TabIndex = 9;
+            this.button19.Text = "Эксперимент по сравнению методов хеш-таблиц";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
             // mainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -533,6 +557,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button19;
     }
 }
 

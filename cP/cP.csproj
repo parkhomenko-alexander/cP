@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="experimentalHTGuben.cs" />
+    <Compile Include="hashTableMethodsExperimental.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hashTableMethodsExperimental.Designer.cs">
+      <DependentUpon>hashTableMethodsExperimental.cs</DependentUpon>
+    </Compile>
     <Compile Include="addBonusInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +83,7 @@
     </Compile>
     <Compile Include="avlTree.cs" />
     <Compile Include="bynaryTreePay.cs" />
+    <Compile Include="experimentalHashTable.cs" />
     <Compile Include="fileRW.cs" />
     <Compile Include="findEmployeeInfo.cs">
       <SubType>Form</SubType>
@@ -105,6 +114,12 @@
     </Compile>
     <Compile Include="findBonusInfo.Designer.cs">
       <DependentUpon>findBonusInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="hashFunctionExperimental.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hashFunctionExperimental.Designer.cs">
+      <DependentUpon>hashFunctionExperimental.cs</DependentUpon>
     </Compile>
     <Compile Include="HashTable.cs" />
     <Compile Include="payMap.cs" />
@@ -161,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="findPayInfo.resx">
       <DependentUpon>findPayInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hashFunctionExperimental.resx">
+      <DependentUpon>hashFunctionExperimental.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hashTableMethodsExperimental.resx">
+      <DependentUpon>hashTableMethodsExperimental.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
