@@ -120,6 +120,13 @@ namespace cP
             {
                 return;
             }
+            foreach(string s in eht.array)
+            {
+                if (s == textBox2.Text)
+                {
+                    return;
+                }
+            }
             if(eht.mapSize == 0)
             {
                 eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
