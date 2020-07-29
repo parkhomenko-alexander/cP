@@ -192,7 +192,7 @@ namespace guben
 
             for (int k = 0; k < s.Length; k++)
             {
-                if (s[k] == 32 && s[k+1] == 32)
+                if (s[k] == 32 && s[k+1] == 32 && k != s.Length)
                 {
                     MessageBox.Show("Некорректно записана должность", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return 1;

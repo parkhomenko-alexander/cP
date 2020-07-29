@@ -249,6 +249,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 41);
             this.textBox5.TabIndex = 23;
+            this.textBox5.Text = "0,6180339887";
             // 
             // label3
             // 
