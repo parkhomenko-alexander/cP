@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace cP
         experimetalHashTable eht = new experimetalHashTable(0);
         experimentalHTGuben eHTG = new experimentalHTGuben(0);
 
+
         public hashTableMethodsExperimental()
         {
             InitializeComponent();
@@ -19,14 +21,35 @@ namespace cP
 
         private void __Load(object sender, EventArgs e)
         {
-            this.Width = 1800;
+            this.Width = 1400;
             this.Height = 780;
+            this.Location = new Point(100, 35);
+            StreamReader sr = new StreamReader("C:\\Users\\al\\source\\repos\\cP\\cP\\эксперимент.txt");
+            eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
+            eHTG = new experimentalHTGuben(Convert.ToInt32(this.textBox7.Text));
+            string fromFile = "";
+
+            while (fromFile != null)
+            {
+                fromFile = sr.ReadLine();
+                if (fromFile == null)
+                {
+                    break;
+                }
+                eht.pushBackArray(fromFile);
+                eHTG.pushBackArray(fromFile);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (eht.mapSize == 0)
             {
+                return;
+            }
+            if (textBox1.Text == "")
+            {
+                textBox4.Clear();
                 return;
             }
             int compCounterOA = eht.calcHash(textBox1.Text).Item2;
@@ -48,29 +71,24 @@ namespace cP
                 MessageBox.Show("Число записей не может быть больше размера хеш-таблицы", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (textBox5.Text != "")
+            {
+                eHTG.constanta = Convert.ToDouble(textBox5.Text);
+            }
             this.dataGridView1.Rows.Clear();
             this.dataGridView2.Rows.Clear();
 
-            eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
-            eHTG = new experimentalHTGuben(Convert.ToInt32(this.textBox7.Text));
+            if (eht.mapSize == 0)
+            {
+                eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
+                eHTG = new experimentalHTGuben(Convert.ToInt32(this.textBox7.Text));
+            }
+
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 StreamReader sr = new StreamReader(ofd.FileName);
                 string fromFile = "";
-
-                while (fromFile != null)
-                {
-                    fromFile = sr.ReadLine();
-                    if (fromFile == null)
-                    {
-                        break;
-                    }
-                    eht.pushBackArray(fromFile);
-                    eHTG.pushBackArray(fromFile);
-                }
-
-                sr.Close();
                 sr = new StreamReader(ofd.FileName);
                 for (int i = 0; i < Convert.ToInt32(this.textBox6.Text); i++)
                 {
@@ -78,24 +96,10 @@ namespace cP
                     if (fromFile == null)
                     {
                         MessageBox.Show("Число записей в справочнике меньше заданного числа для эксперимента\n" +
-                        "Проведён эксперимент для" + i + " записей", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        "Проведён эксперимент для " + i + " записей", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    Tuple <int, string, int> y = eht.calcHashAndInsertion(eht.array[i], i, dataGridView1);
-                }
-                sr.Close();
-
-                sr = new StreamReader(ofd.FileName);
-                fromFile = null;
-                for (int i = 0; i < Convert.ToInt32(this.textBox6.Text); i++)
-                {
-                    fromFile = sr.ReadLine();
-                    if (fromFile == null)
-                    {
-                        MessageBox.Show("Число записей в справочнике меньше заданного числа для эксперимента\n" +
-                        "Проведён эксперимент для" + i + " записей", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                    Tuple <int, string, int> y = eht.calcHashAndInsertion(eht.array[i], i, dataGridView1, Convert.ToInt32(this.textBox6.Text));
                     eHTG.addHashTable(eht.array[i], dataGridView2);
                 }
                 sr.Close();
@@ -114,12 +118,13 @@ namespace cP
             }
             eht.pushBackArray(textBox2.Text);
             eHTG.pushBackArray(textBox2.Text);
-            Tuple <int, string, int> x = eht.calcHashAndInsertion(textBox2.Text, eht.arraySize - 1, dataGridView1);
+            Tuple <int, string, int> x = eht.calcHashAndInsertion(textBox2.Text, eht.arraySize - 1, dataGridView1, Convert.ToInt32(this.textBox6.Text));
+            textBox8.Text = x.Item1.ToString();
             eHTG.addHashTable(textBox2.Text, dataGridView2);
             if (x.Item2 != "")
             {
                 textBox3.Text = "произошло";
-                eHTG.rehashing(dataGridView2);
+                eHTG.rehashing(dataGridView2, Convert.ToInt32(this.textBox6.Text));
             }
             else
             {

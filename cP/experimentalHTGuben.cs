@@ -117,6 +117,7 @@ namespace guben
             {
                 arrayRoot[i] = new LinkedList();
             }
+            constanta = 0.6180339887;
         }
         public string pushBackArray(string field1)
         {
@@ -141,7 +142,7 @@ namespace guben
             int hashAdress = hFunction(field1);
             this.arrayRoot[hashAdress].Remove(field1);
         }
-        public void rehashing(DataGridView dgw)
+        public void rehashing(DataGridView dgw, int k)
         {
             arrayRootSize *= 2;
             Array.Resize(ref arrayRoot, 0);
@@ -151,7 +152,7 @@ namespace guben
             {
                 arrayRoot[i] = new LinkedList();
             }
-            for (int i = 0; i < arraySize - 1; i++)
+            for (int i = 0; i < k; i++)
             {
                 int hashAdress = hFunction(array[i]);
                 this.arrayRoot[hashAdress].Add(array[i]);
@@ -176,13 +177,11 @@ namespace guben
             {
                 result += letter;
             }
-            result = (result * 0.6180339887) % 1;
+            result = (result * constanta) % 1;
             result = result * size;
             return Convert.ToInt32(result);
         }
 
-        //1 - Неверно записана должность, 2 - Неверно записано подразделение, 3 - ФИО должно начинаться с заглавной буквы
-        //4 - Неверно записано ФИО
         public int validator(string s)
         {
             if (s[0] < 1040 || s[0] > 1071)
@@ -191,16 +190,11 @@ namespace guben
                 return 1;
             }
 
-            int spaceCounter = 0;
-            foreach(char letter in s)
+            for (int k = 0; k < s.Length; k++)
             {
-                if (letter == 32)
+                if (s[k] == 32 && s[k+1] == 32)
                 {
-                    spaceCounter++;
-                }
-                if (spaceCounter == 2)
-                {
-                    MessageBox.Show("Должность может содержать лишь один пробел", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Некорректно записана должность", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return 1;
                 }
             }
@@ -227,6 +221,6 @@ namespace guben
         public int arrayRootSize { get; set; }
         public string[] array;
         public int arraySize;
-
+        public double constanta;
     } 
 }

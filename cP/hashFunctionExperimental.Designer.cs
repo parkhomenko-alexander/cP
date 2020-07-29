@@ -110,7 +110,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(88, 41);
             this.button2.TabIndex = 2;
-            this.button2.Text = "Кукушка";
+            this.button2.Text = "Сдвиг";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -246,7 +246,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1782, 903);
+            this.ClientSize = new System.Drawing.Size(1382, 733);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
@@ -261,6 +261,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart2);
             this.Controls.Add(this.chart1);
+            this.Location = new System.Drawing.Point(100, 100);
             this.Name = "hashFunctionExperimental";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Эксперимент";

@@ -66,8 +66,9 @@ namespace cP
 
         private void hashFunctionExperimental_Load(object sender, EventArgs e)
         {
-            this.Width = 1800;
+            this.Width = 1400;
             this.Height = 780;
+            this.Location = new Point(100, 35);
         }
 
         private void button2_Click(object sender, EventArgs e)

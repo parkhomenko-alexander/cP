@@ -22,7 +22,7 @@ namespace expHashTable
             return "Запись успешно добавлена";
         }
 
-        public Tuple<int, string, int> calcHashAndInsertion(string key, int index, DataGridView dgw)
+        public Tuple<int, string, int> calcHashAndInsertion(string key, int index, DataGridView dgw, int k)
         {
             int firstAdress = func1(key);
             int offsetFromFirst = funс2(key);
@@ -48,7 +48,7 @@ namespace expHashTable
                         recorded = 0;
                         recordedCoef = 0;
                         collisionCounter = 0;
-                        return Tuple.Create(cc, rehasing(dgw), insertionAdress);
+                        return Tuple.Create(cc, rehasing(dgw, k), insertionAdress);
                     }
                     return Tuple.Create(cc, "", insertionAdress);
                 }
@@ -106,7 +106,7 @@ namespace expHashTable
             }
             return Tuple.Create(0, collisionСounter);
         }
-        public string rehasing(DataGridView dgw)
+        public string rehasing(DataGridView dgw, int k)
         {
             mapSize *= 2;
             recorded = 0;
@@ -114,9 +114,9 @@ namespace expHashTable
             dgw.Rows.Clear();
             Array.Resize(ref map, 0);
             Array.Resize(ref map, mapSize);
-            for (int i = 0; i < arraySize - 1; i++)
+            for (int i = 0; i < k; i++)
             {
-                Tuple<int, string, int> x = calcHashAndInsertion(array[i], i, dgw);
+                Tuple<int, string, int> x = calcHashAndInsertion(array[i], i, dgw, k);
             }
             return "да";
         }
