@@ -166,7 +166,7 @@ namespace expHashTable
             dgw.Rows.Clear();
             Array.Resize(ref map, 0);
             Array.Resize(ref map, mapSize);
-            for (int i = 0; i < k; i++)
+            for (int i = 0; i <= k; i++)
             {
                 calcHashAndInsertion(array[i], i, dgw, k);
             }
@@ -278,6 +278,7 @@ namespace expHashTable
                 result += letter;
             }
             result >>= 2;
+
             return result % mapSize;
         }
         public int funс2_1(string key)
@@ -289,6 +290,7 @@ namespace expHashTable
                 result += letter;
             }
             result >>= 3;
+            
             if (result % 2 == 0)
             {
                 return result + 1;
