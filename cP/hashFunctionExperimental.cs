@@ -28,6 +28,7 @@ namespace cP
 
         private void button1_Click(object sender, EventArgs e)
         {
+            textBox6.Text = "не было";
             if (Convert.ToInt32(this.textBox1.Text) > Convert.ToInt32(this.textBox2.Text))
             {
                 MessageBox.Show("Число записей не может быть больше размера хеш-таблицы", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -82,9 +83,13 @@ namespace cP
                         "Проведён эксперимент для" + i + " записей", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    eht1.calcHashAndInsertion(fromFile, i, dataGridView1,chart1, ref  x, step, ins);
+                    var y = eht1.calcHashAndInsertion(fromFile, i, dataGridView1,chart1, ref  x, step, ins);
                     eht2.calcHashAndInsertion_1(fromFile, i, dataGridView2, chart2, ref x, step, ins);
                     ins++;
+                    if(y.Item2 != "")
+                    {
+                        textBox6.Text = "было";
+                    }
                 }
                 sr.Close();
                 this.chart1.Titles[0].Text = "Всего коллизиий " + eht1.collisionCounter;

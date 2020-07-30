@@ -97,7 +97,7 @@ namespace expHashTable
         {
             int firstAdress = func1(key);
             int offsetFromFirst = funс2(key);
-            int collisionСounter = 1;
+            int collisionСounter = 0;
 
             for (int i = 0; i < mapSize; i++)
             {
@@ -128,10 +128,20 @@ namespace expHashTable
             Array.Resize(ref map, mapSize);
             if (sign != 1)
             {
+                if (arraySize < 250)
+                {
+                    for (int i = 0; i <= arraySize - 2; i++)
+                    {
+                        calcHashAndInsertion(array[i], i, dgw, ch, ref x, st, k);
+                    }
+                    return "да";
+                }
+
                 for (int i = 0; i < k; i++)
                 {
                     calcHashAndInsertion(array[i], i, dgw, ch, ref x, st, k);
                 }
+
                 for (int i = 250; i < arraySize; i++)
                 {
                     if(array[i] == null)
@@ -143,10 +153,21 @@ namespace expHashTable
             }
             else
             {
+
+                if (arraySize < 250)
+                {
+                    for (int i = 0; i <= arraySize - 2; i++)
+                    {
+                        calcHashAndInsertion_1(array[i], i, dgw, ch, ref x, st, k);
+                    }
+                    return "да";
+                }
+
                 for (int i = 0; i < k; i++)
                 {
                     calcHashAndInsertion_1(array[i], i, dgw, ch, ref x, st, k);
                 }
+
                 for (int i = 250; i < arraySize; i++)
                 {
                     if (array[i] == null)
@@ -166,10 +187,21 @@ namespace expHashTable
             dgw.Rows.Clear();
             Array.Resize(ref map, 0);
             Array.Resize(ref map, mapSize);
+
+            if (arraySize < 250)
+            {
+                for (int i = 0; i <= arraySize - 2; i++)
+                {
+                    calcHashAndInsertion(array[i], i, dgw, k);
+                }
+                return "да";
+            }
+
             for (int i = 0; i <= k; i++)
             {
                 calcHashAndInsertion(array[i], i, dgw, k);
             }
+           
             for (int i = 250; i < arraySize; i++ )
             {
                 if (array[i] == null)
