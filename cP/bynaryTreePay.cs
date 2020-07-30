@@ -629,5 +629,4 @@ namespace bynTree
         public info[] array;
         public int arraySize;
     }
-
 }

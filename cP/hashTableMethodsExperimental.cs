@@ -102,6 +102,14 @@ namespace cP
                             return;
                         }
                         Tuple<int, string, int> y = eht.calcHashAndInsertion(eht.array[i], i, dataGridView1, ins);
+                        if (y.Item2 != "")
+                        {
+                            textBox3.Text = "было";
+                        }
+                        else
+                        {
+                            textBox3.Text = "не было";
+                        }
                         eHTG.addHashTable(eht.array[i], dataGridView2);
                         ins++;
                     }
@@ -141,7 +149,6 @@ namespace cP
             if (x.Item2 != "")
             {
                 textBox3.Text = "было";
-                eHTG.rehashing(dataGridView2, ins);
             }
             else
             {
