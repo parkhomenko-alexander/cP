@@ -128,6 +128,10 @@ namespace cP
                         ins++;
                     }
                 }
+                if (textBox3.Text == "")
+                {
+                    textBox3.Text = "не было";
+                }
                 sr.Close();
             }
         }
