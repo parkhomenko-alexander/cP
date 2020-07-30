@@ -120,6 +120,10 @@ namespace cP
                         {
                             textBox3.Text = "было";
                         }
+                        if (y.Item2 != "")
+                        {
+                            textBox3.Text = "было";
+                        }
                         eHTG.addHashTable(eht.array[i], dataGridView2);
                         ins++;
                     }
