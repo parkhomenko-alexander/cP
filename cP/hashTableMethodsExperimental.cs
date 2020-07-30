@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
@@ -60,10 +61,7 @@ namespace cP
                 MessageBox.Show("Число записей не может быть больше размера хеш-таблицы", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (textBox5.Text != "")
-            {
-                eHTG.constanta = Convert.ToDouble(textBox5.Text);
-            }
+
             this.dataGridView1.Rows.Clear();
             this.dataGridView2.Rows.Clear();
             ins = 0;
@@ -78,6 +76,11 @@ namespace cP
             {
                 eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
                 eHTG = new experimentalHTGuben(Convert.ToInt32(this.textBox7.Text));
+            }
+
+            if (textBox5.Text != "")
+            {
+                eHTG.constanta = Convert.ToDouble(textBox5.Text);
             }
 
             OpenFileDialog ofd = new OpenFileDialog();
