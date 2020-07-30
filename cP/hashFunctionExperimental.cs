@@ -38,6 +38,7 @@ namespace cP
             this.dataGridView1.Rows.Clear();
             this.chart2.Series[0].Points.Clear();
             this.dataGridView2.Rows.Clear();
+            ins = 0;
 
             if (eht1.mapSize == 0)
             {
