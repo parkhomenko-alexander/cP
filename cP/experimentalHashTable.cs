@@ -97,7 +97,7 @@ namespace expHashTable
         {
             int firstAdress = func1(key);
             int offsetFromFirst = funс2(key);
-            int collisionСounter = 0;
+            int collisionСounter = 1;
 
             for (int i = 0; i < mapSize; i++)
             {
