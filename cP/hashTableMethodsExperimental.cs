@@ -135,7 +135,6 @@ namespace cP
             }
             eht.pushBackArray(textBox2.Text);
             eHTG.pushBackArray(textBox2.Text);
-            ins++;
             Tuple <int, string, int> x = eht.calcHashAndInsertion(textBox2.Text, eht.arraySize - 1, dataGridView1, ins);
             textBox8.Text = x.Item1.ToString();
             eHTG.addHashTable(textBox2.Text, dataGridView2);

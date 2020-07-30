@@ -2,6 +2,7 @@
 using System.Management.Instrumentation;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace expHashTable
 {
@@ -55,7 +56,7 @@ namespace expHashTable
             }
             return Tuple.Create(0, "", 0);
         }
-        public Tuple<int, string, int> calcHashAndInsertion(string key, int index)
+        public Tuple<int, string, int> calcHashAndInsertion(string key, int index, DataGridView dgw, Chart ch, ref int x, int st, int k, int sign = 0)
         {
             int firstAdress = func1(key);
             int offsetFromFirst = funс2(key);
@@ -64,7 +65,7 @@ namespace expHashTable
             for (int i = 0; i < mapSize; i++)
             {
                 int insertionAdress = (firstAdress + i * offsetFromFirst) % mapSize;
-                if(map[insertionAdress] != null)
+                if (map[insertionAdress] != null)
                 {
                     cc++;
                     collisionCounter++;
@@ -74,13 +75,24 @@ namespace expHashTable
                 {
                     map[insertionAdress] = Tuple.Create(key, index);
                     recorded++;
-                    recordedCoef = recorded/mapSize;
+                    recordedCoef = recorded / mapSize;
+                    dgw.Rows.Add(insertionAdress, key);
+                    ch.Series[0].Points.AddXY(x, cc);
+                    ch.Titles[0].Text = "Всего коллизиий " + collisionCounter;
+                    if (recordedCoef > 0.75)
+                    {
+                        ch.Series[0].Points.Clear();
+                        recorded = 0;
+                        recordedCoef = 0;
+                        collisionCounter = 0;
+                        return Tuple.Create(cc, rehasing(dgw, ch, ref x, st, k, 0), insertionAdress);
+                    }
                     return Tuple.Create(cc, "", insertionAdress);
                 }
             }
             return Tuple.Create(0, "", 0);
         }
-
+        
         public Tuple<int,int> calcHash(string key)
         {
             int firstAdress = func1(key);
@@ -106,6 +118,46 @@ namespace expHashTable
             }
             return Tuple.Create(0, collisionСounter);
         }
+        public string rehasing(DataGridView dgw, Chart ch, ref int x, int st, int k, int sign)
+        {
+            mapSize *= 2;
+            recorded = 0;
+            recordedCoef = 0;
+            dgw.Rows.Clear();
+            Array.Resize(ref map, 0);
+            Array.Resize(ref map, mapSize);
+            if (sign != 1)
+            {
+                for (int i = 0; i < k; i++)
+                {
+                    calcHashAndInsertion(array[i], i, dgw, ch, ref x, st, k);
+                }
+                for (int i = 250; i < arraySize - 1; i++)
+                {
+                    if(array[i] == null)
+                    {
+                        return "да";
+                    }
+                    calcHashAndInsertion(array[i], i, dgw, ch, ref x, st, k);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < k; i++)
+                {
+                    calcHashAndInsertion_1(array[i], i, dgw, ch, ref x, st, k);
+                }
+                for (int i = 250; i < arraySize - 1; i++)
+                {
+                    if (array[i] == null)
+                    {
+                        return "да";
+                    }
+                    calcHashAndInsertion_1(array[i], i, dgw, ch, ref x, st, k);
+                }
+            }
+            return "да";
+        }
         public string rehasing(DataGridView dgw, int k)
         {
             mapSize *= 2;
@@ -116,12 +168,21 @@ namespace expHashTable
             Array.Resize(ref map, mapSize);
             for (int i = 0; i < k; i++)
             {
-                Tuple<int, string, int> x = calcHashAndInsertion(array[i], i, dgw, k);
+                calcHashAndInsertion(array[i], i, dgw, k);
             }
+            for (int i = 250; i < arraySize-1; i++ )
+            {
+                if (array[i] == null)
+                {
+                    return "да";
+                }
+                calcHashAndInsertion(array[i], i, dgw, k);
+            }
+
             return "да";
         }
 
-        public Tuple<int, string, int> calcHashAndInsertion_1(string key, int index)
+        public Tuple<int, string, int> calcHashAndInsertion_1(string key, int index, DataGridView dgw, Chart ch, ref int x, int st, int k)
         {
             int firstAdress = func1_1(key);
             int offsetFromFirst = funс2_1(key);
@@ -141,6 +202,17 @@ namespace expHashTable
                     map[insertionAdress] = Tuple.Create(key, index);
                     recorded++;
                     recordedCoef = recorded / mapSize;
+                    dgw.Rows.Add(insertionAdress, key);
+                    ch.Series[0].Points.AddXY(x, cc);
+                    ch.Titles[0].Text = "Всего коллизиий " + collisionCounter;
+                    if (recordedCoef > 0.75)
+                    {   
+                        ch.Series[0].Points.Clear();
+                        recorded = 0;
+                        recordedCoef = 0;
+                        collisionCounter = 0;
+                        return Tuple.Create(cc, rehasing(dgw, ch, ref x, st, k, 1), insertionAdress);
+                    }
                     return Tuple.Create(cc, "", insertionAdress);
                 }
             }
@@ -225,6 +297,41 @@ namespace expHashTable
             {
                 return result;
             }
+        }
+
+        public int validator(string s)
+        {
+            if (s[0] < 1040 || s[0] > 1071)
+            {
+                MessageBox.Show("Должность должна начинаться с заглавной буквы", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return 1;
+            }
+
+            for (int k = 0; k < s.Length; k++)
+            {
+                if (s[k] == 32 && s[k + 1] == 32 && k != s.Length)
+                {
+                    MessageBox.Show("Некорректно записана должность", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return 1;
+                }
+            }
+
+            int i = 0;
+            foreach (char letter in s)
+            {
+                if (i == 0)
+                {
+                    i++;
+                    continue;
+                }
+                if (letter != 32 && (letter < 1072 || letter > 1103))
+                {
+                    MessageBox.Show("Некорректно записана должность", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return 1;
+                }
+            }
+
+            return 0;
         }
 
         public string[] array;
