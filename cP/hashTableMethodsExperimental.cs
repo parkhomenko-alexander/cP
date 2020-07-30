@@ -66,8 +66,15 @@ namespace cP
             }
             this.dataGridView1.Rows.Clear();
             this.dataGridView2.Rows.Clear();
-
+            ins = 0;
+            
             if (eht.mapSize == 0)
+            {
+                eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
+                eHTG = new experimentalHTGuben(Convert.ToInt32(this.textBox7.Text));
+            }
+
+            if (eht.mapSize != 0)
             {
                 eht = new experimetalHashTable(Convert.ToInt32(this.textBox7.Text));
                 eHTG = new experimentalHTGuben(Convert.ToInt32(this.textBox7.Text));
@@ -80,7 +87,11 @@ namespace cP
                 StreamReader sr = new StreamReader(ofd.FileName);
                 string fromFile = "";
                 while (fromFile != null)
-                {
+                {   
+                    if(eht.arraySize == 251)
+                    {
+                        break;
+                    }
                     fromFile = sr.ReadLine();
                     if (fromFile == null)
                     {

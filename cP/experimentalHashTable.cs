@@ -132,7 +132,7 @@ namespace expHashTable
                 {
                     calcHashAndInsertion(array[i], i, dgw, ch, ref x, st, k);
                 }
-                for (int i = 250; i < arraySize - 1; i++)
+                for (int i = 250; i < arraySize; i++)
                 {
                     if(array[i] == null)
                     {
@@ -147,7 +147,7 @@ namespace expHashTable
                 {
                     calcHashAndInsertion_1(array[i], i, dgw, ch, ref x, st, k);
                 }
-                for (int i = 250; i < arraySize - 1; i++)
+                for (int i = 250; i < arraySize; i++)
                 {
                     if (array[i] == null)
                     {
@@ -170,7 +170,7 @@ namespace expHashTable
             {
                 calcHashAndInsertion(array[i], i, dgw, k);
             }
-            for (int i = 250; i < arraySize-1; i++ )
+            for (int i = 250; i < arraySize; i++ )
             {
                 if (array[i] == null)
                 {
